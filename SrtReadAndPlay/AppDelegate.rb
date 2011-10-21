@@ -20,19 +20,23 @@ class AppDelegate
 
   end
 
+  def loadMedia sender
+
+  end
+
   def loadSrt sender
     panel = NSOpenPanel.openPanel
     panel.setAllowedFileTypes ['srt']
 
     if NSOKButton == panel.runModal
-      filePath = panel.URL
-      p filePath
+      timeline = TimelineController.alloc;
 
-      controller = NSViewController.alloc.initWithNibName 'Timeline', bundle:nil
-      controller.view.setFrame @mainView.view.bounds
-      controller.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
-      @mainView.view.addSubview controller.view
-
+      if timeline.model = TimelineModel.makeModel(panel.URL)
+        timeline.initWithNibName 'Timeline', bundle:nil
+        timeline.view.setFrame @mainView.view.bounds
+        timeline.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
+        @mainView.view.addSubview timeline.view
+      end
     end
   end
 

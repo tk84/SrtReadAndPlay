@@ -31,7 +31,7 @@
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSCustomObject" id="1001">
-				<string key="NSClassName">NSViewController</string>
+				<string key="NSClassName">TimelineViewController</string>
 			</object>
 			<object class="NSCustomObject" id="1003">
 				<string key="NSClassName">FirstResponder</string>
@@ -52,7 +52,7 @@
 							<object class="NSTableView" id="624820539">
 								<reference key="NSNextResponder" ref="938004016"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrameSize">{345, 241}</string>
+								<string key="NSFrameSize">{349, 241}</string>
 								<reference key="NSSuperview" ref="938004016"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="991296241"/>
@@ -61,7 +61,7 @@
 								<object class="NSTableHeaderView" key="NSHeaderView" id="217277512">
 									<reference key="NSNextResponder" ref="418949454"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrameSize">{345, 17}</string>
+									<string key="NSFrameSize">{349, 17}</string>
 									<reference key="NSSuperview" ref="418949454"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="938004016"/>
@@ -77,13 +77,14 @@
 								<object class="NSMutableArray" key="NSTableColumns">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="NSTableColumn" id="876561214">
-										<double key="NSWidth">101</double>
+										<string key="NSIdentifier">btime</string>
+										<double key="NSWidth">70</double>
 										<double key="NSMinWidth">40</double>
 										<double key="NSMaxWidth">1000</double>
 										<object class="NSTableHeaderCell" key="NSHeaderCell">
 											<int key="NSCellFlags">75628096</int>
 											<int key="NSCellFlags2">2048</int>
-											<string key="NSContents"/>
+											<string key="NSContents">開始</string>
 											<object class="NSFont" key="NSSupport" id="26">
 												<string key="NSName">LucidaGrande</string>
 												<double key="NSSize">11</double>
@@ -134,14 +135,50 @@
 										<bool key="NSIsEditable">YES</bool>
 										<reference key="NSTableView" ref="624820539"/>
 									</object>
+									<object class="NSTableColumn" id="635424439">
+										<string key="NSIdentifier">etime</string>
+										<double key="NSWidth">70</double>
+										<double key="NSMinWidth">10</double>
+										<double key="NSMaxWidth">3.4028234663852886e+38</double>
+										<object class="NSTableHeaderCell" key="NSHeaderCell">
+											<int key="NSCellFlags">75628096</int>
+											<int key="NSCellFlags2">2048</int>
+											<string key="NSContents">終了</string>
+											<reference key="NSSupport" ref="26"/>
+											<object class="NSColor" key="NSBackgroundColor">
+												<int key="NSColorSpace">6</int>
+												<string key="NSCatalogName">System</string>
+												<string key="NSColorName">headerColor</string>
+												<object class="NSColor" key="NSColor" id="948894601">
+													<int key="NSColorSpace">3</int>
+													<bytes key="NSWhite">MQA</bytes>
+												</object>
+											</object>
+											<reference key="NSTextColor" ref="669987975"/>
+										</object>
+										<object class="NSTextFieldCell" key="NSDataCell" id="856623589">
+											<int key="NSCellFlags">337772096</int>
+											<int key="NSCellFlags2">2048</int>
+											<string key="NSContents">Text Cell</string>
+											<reference key="NSSupport" ref="696752058"/>
+											<reference key="NSControlView" ref="624820539"/>
+											<reference key="NSBackgroundColor" ref="92487665"/>
+											<reference key="NSTextColor" ref="890348914"/>
+										</object>
+										<int key="NSResizingMask">3</int>
+										<bool key="NSIsResizeable">YES</bool>
+										<bool key="NSIsEditable">YES</bool>
+										<reference key="NSTableView" ref="624820539"/>
+									</object>
 									<object class="NSTableColumn" id="868369845">
-										<double key="NSWidth">238</double>
+										<string key="NSIdentifier">text</string>
+										<double key="NSWidth">200</double>
 										<double key="NSMinWidth">40</double>
 										<double key="NSMaxWidth">1000</double>
 										<object class="NSTableHeaderCell" key="NSHeaderCell">
 											<int key="NSCellFlags">75628096</int>
 											<int key="NSCellFlags2">2048</int>
-											<string key="NSContents"/>
+											<string key="NSContents">テキスト</string>
 											<reference key="NSSupport" ref="26"/>
 											<reference key="NSBackgroundColor" ref="713425217"/>
 											<reference key="NSTextColor" ref="669987975"/>
@@ -163,10 +200,7 @@
 								</object>
 								<double key="NSIntercellSpacingWidth">3</double>
 								<double key="NSIntercellSpacingHeight">2</double>
-								<object class="NSColor" key="NSBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
+								<reference key="NSBackgroundColor" ref="948894601"/>
 								<object class="NSColor" key="NSGridColor">
 									<int key="NSColorSpace">6</int>
 									<string key="NSCatalogName">System</string>
@@ -212,16 +246,17 @@
 					</object>
 					<object class="NSScroller" id="607688991">
 						<reference key="NSNextResponder" ref="22524659"/>
-						<int key="NSvFlags">-2147483392</int>
-						<string key="NSFrame">{{1, 119}, {223, 15}}</string>
+						<int key="NSvFlags">256</int>
+						<string key="NSFrame">{{1, 243}, {345, 15}}</string>
 						<reference key="NSSuperview" ref="22524659"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1847</string>
+						<bool key="NSEnabled">YES</bool>
 						<int key="NSsFlags">1</int>
 						<reference key="NSTarget" ref="22524659"/>
 						<string key="NSAction">_doScroller:</string>
-						<double key="NSPercent">0.57142859697341919</double>
+						<double key="NSPercent">0.98853868194842409</double>
 					</object>
 					<object class="NSClipView" id="418949454">
 						<reference key="NSNextResponder" ref="22524659"/>
@@ -245,18 +280,12 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="418949454"/>
 				<string key="NSReuseIdentifierKey">_NS:1824</string>
-				<int key="NSsFlags">133682</int>
+				<int key="NSsFlags">133810</int>
 				<reference key="NSVScroller" ref="991296241"/>
 				<reference key="NSHScroller" ref="607688991"/>
 				<reference key="NSContentView" ref="938004016"/>
 				<reference key="NSHeaderClipView" ref="418949454"/>
 				<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
-			</object>
-			<object class="NSCustomObject" id="676055787">
-				<string key="NSClassName">TimelineModel</string>
-			</object>
-			<object class="NSCustomObject" id="710998683">
-				<string key="NSClassName">TimelineController</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -274,9 +303,9 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="624820539"/>
-						<reference key="destination" ref="710998683"/>
+						<reference key="destination" ref="1001"/>
 					</object>
-					<int key="connectionID">11</int>
+					<int key="connectionID">15</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -325,8 +354,9 @@
 						<reference key="object" ref="624820539"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="876561214"/>
 							<reference ref="868369845"/>
+							<reference ref="876561214"/>
+							<reference ref="635424439"/>
 						</object>
 						<reference key="parent" ref="22524659"/>
 					</object>
@@ -374,14 +404,18 @@
 						<reference key="parent" ref="876561214"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">10</int>
-						<reference key="object" ref="710998683"/>
-						<reference key="parent" ref="1002"/>
+						<int key="objectID">16</int>
+						<reference key="object" ref="635424439"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="856623589"/>
+						</object>
+						<reference key="parent" ref="624820539"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="676055787"/>
-						<reference key="parent" ref="1002"/>
+						<int key="objectID">17</int>
+						<reference key="object" ref="856623589"/>
+						<reference key="parent" ref="635424439"/>
 					</object>
 				</object>
 			</object>
@@ -393,8 +427,8 @@
 					<string>-2.IBPluginDependency</string>
 					<string>-3.IBPluginDependency</string>
 					<string>1.IBPluginDependency</string>
-					<string>10.IBPluginDependency</string>
-					<string>13.IBPluginDependency</string>
+					<string>16.IBPluginDependency</string>
+					<string>17.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
@@ -434,29 +468,9 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">13</int>
+			<int key="maxID">17</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="IBPartialClassDescription">
-					<string key="className">TimelineController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TimelineController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TimelineModel</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TimelineModel.h</string>
-					</object>
-				</object>
-			</object>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
