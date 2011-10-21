@@ -1,0 +1,338 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7C14519CD4004A282F /* Cocoa.framework */; };
+		45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7E14519CD4004A282F /* MacRuby.framework */; };
+		45F6CF8614519CD4004A282F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8414519CD4004A282F /* InfoPlist.strings */; };
+		45F6CF8814519CD4004A282F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F6CF8714519CD4004A282F /* main.m */; };
+		45F6CF8D14519CD4004A282F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8B14519CD4004A282F /* MainMenu.xib */; };
+		45F6CF9014519CD4004A282F /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8F14519CD4004A282F /* rb_main.rb */; };
+		45F6CF9214519CD4004A282F /* AppDelegate.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF9114519CD4004A282F /* AppDelegate.rb */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45F6CF7C14519CD4004A282F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		45F6CF7E14519CD4004A282F /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
+		45F6CF8314519CD4004A282F /* SrtReadAndPlay-Info.plist */ = {isa = PBXFileReference; path = "SrtReadAndPlay-Info.plist"; sourceTree = "<group>"; };
+		45F6CF8514519CD4004A282F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45F6CF8714519CD4004A282F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		45F6CF8914519CD4004A282F /* SrtReadAndPlay-Prefix.pch */ = {isa = PBXFileReference; path = "SrtReadAndPlay-Prefix.pch"; sourceTree = "<group>"; };
+		45F6CF8C14519CD4004A282F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		45F6CF8F14519CD4004A282F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
+		45F6CF9114519CD4004A282F /* AppDelegate.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = AppDelegate.rb; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45F6CF7514519CD4004A282F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */,
+				45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45F6CF6D14519CD4004A282F = {
+			isa = PBXGroup;
+			children = (
+				45F6CF8114519CD4004A282F /* SrtReadAndPlay */,
+				45F6CF7B14519CD4004A282F /* Frameworks */,
+				45F6CF7914519CD4004A282F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		45F6CF7914519CD4004A282F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45F6CF7B14519CD4004A282F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF7C14519CD4004A282F /* Cocoa.framework */,
+				45F6CF7E14519CD4004A282F /* MacRuby.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45F6CF8114519CD4004A282F /* SrtReadAndPlay */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF9114519CD4004A282F /* AppDelegate.rb */,
+				45F6CF8A14519CD4004A282F /* Resources */,
+				45F6CF8E14519CD4004A282F /* Other Sources */,
+				45F6CF8214519CD4004A282F /* Supporting Files */,
+			);
+			path = SrtReadAndPlay;
+			sourceTree = "<group>";
+		};
+		45F6CF8214519CD4004A282F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF8314519CD4004A282F /* SrtReadAndPlay-Info.plist */,
+				45F6CF8414519CD4004A282F /* InfoPlist.strings */,
+				45F6CF8714519CD4004A282F /* main.m */,
+				45F6CF8914519CD4004A282F /* SrtReadAndPlay-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45F6CF8A14519CD4004A282F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF8B14519CD4004A282F /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		45F6CF8E14519CD4004A282F /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				45F6CF8F14519CD4004A282F /* rb_main.rb */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		45F6CF8014519CD4004A282F /* Deployment */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "--compile --embed";
+			buildConfigurationList = 45F6CF9814519CD4004A282F /* Build configuration list for PBXLegacyTarget "Deployment" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/local/bin/macruby_deploy;
+			dependencies = (
+			);
+			name = Deployment;
+			passBuildSettingsInEnvironment = 1;
+			productName = Deployment;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		45F6CF7714519CD4004A282F /* SrtReadAndPlay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45F6CF9514519CD4004A282F /* Build configuration list for PBXNativeTarget "SrtReadAndPlay" */;
+			buildPhases = (
+				45F6CF7414519CD4004A282F /* Sources */,
+				45F6CF7514519CD4004A282F /* Frameworks */,
+				45F6CF7614519CD4004A282F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SrtReadAndPlay;
+			productName = SrtReadAndPlay;
+			productReference = 45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45F6CF6F14519CD4004A282F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 45F6CF7214519CD4004A282F /* Build configuration list for PBXProject "SrtReadAndPlay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 45F6CF6D14519CD4004A282F;
+			productRefGroup = 45F6CF7914519CD4004A282F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				45F6CF7714519CD4004A282F /* SrtReadAndPlay */,
+				45F6CF8014519CD4004A282F /* Deployment */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		45F6CF7614519CD4004A282F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F6CF8614519CD4004A282F /* InfoPlist.strings in Resources */,
+				45F6CF8D14519CD4004A282F /* MainMenu.xib in Resources */,
+				45F6CF9014519CD4004A282F /* rb_main.rb in Resources */,
+				45F6CF9214519CD4004A282F /* AppDelegate.rb in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		45F6CF7414519CD4004A282F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F6CF8814519CD4004A282F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		45F6CF8414519CD4004A282F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45F6CF8514519CD4004A282F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		45F6CF8B14519CD4004A282F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45F6CF8C14519CD4004A282F /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		45F6CF9314519CD4004A282F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		45F6CF9414519CD4004A282F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		45F6CF9614519CD4004A282F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SrtReadAndPlay/SrtReadAndPlay-Prefix.pch";
+				INFOPLIST_FILE = "SrtReadAndPlay/SrtReadAndPlay-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		45F6CF9714519CD4004A282F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SrtReadAndPlay/SrtReadAndPlay-Prefix.pch";
+				INFOPLIST_FILE = "SrtReadAndPlay/SrtReadAndPlay-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		45F6CF9914519CD4004A282F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		45F6CF9A14519CD4004A282F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45F6CF7214519CD4004A282F /* Build configuration list for PBXProject "SrtReadAndPlay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45F6CF9314519CD4004A282F /* Debug */,
+				45F6CF9414519CD4004A282F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45F6CF9514519CD4004A282F /* Build configuration list for PBXNativeTarget "SrtReadAndPlay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45F6CF9614519CD4004A282F /* Debug */,
+				45F6CF9714519CD4004A282F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		45F6CF9814519CD4004A282F /* Build configuration list for PBXLegacyTarget "Deployment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45F6CF9914519CD4004A282F /* Debug */,
+				45F6CF9A14519CD4004A282F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45F6CF6F14519CD4004A282F /* Project object */;
+}
