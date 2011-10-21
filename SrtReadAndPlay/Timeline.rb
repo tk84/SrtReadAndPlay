@@ -50,7 +50,7 @@ class TimelineModel
           end
         end
 
-        model = self.new table ? table[:emsec].count >= 1
+        model = self.new table if table[:emsec].count >= 1
       end
     end
 

@@ -9,18 +9,29 @@
 
 class AppDelegate
   attr_accessor :window
-  attr_accessor :mainView
-  attr_accessor :button
+  attr_accessor :timeline
+  attr_accessor :timelinePath
+  attr_accessor :media
+  attr_accessor :mediaPath
+
   def applicationDidFinishLaunching(a_notification)
     # Insert code here to initialize your application
-
-  end
-
-  def awakeFromNib
-
   end
 
   def loadMedia sender
+    panel = NSOpenPanel.openPanel
+    panel.setAllowedFileTypes ['mp4', 'm4v']
+
+    if NSOKButton == panel.runModal
+      media = MediaController.alloc;
+      if media.model = MediaModel.makeModel(panel.URL)
+        @mediaPath.setURL panel.URL
+        # media.initWithNibName 'Media', bundle:nil
+        # media.view.setFrame @media.view.bounds
+        # media.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
+        # @media.view.addSubview media.view
+      end
+    end
 
   end
 
@@ -32,24 +43,13 @@ class AppDelegate
       timeline = TimelineController.alloc;
 
       if timeline.model = TimelineModel.makeModel(panel.URL)
+        @timelinePath.setURL panel.URL
         timeline.initWithNibName 'Timeline', bundle:nil
-        timeline.view.setFrame @mainView.view.bounds
+        timeline.view.setFrame @timeline.view.bounds
         timeline.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
-        @mainView.view.addSubview timeline.view
+        @timeline.view.addSubview timeline.view
       end
     end
-  end
-
-  def takeAction sender
-    controller = NSViewController.alloc.initWithNibName 'Timeline', bundle:nil
-    controller.view.setFrame @mainView.view.bounds
-    controller.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
-
-    #	[[propertyView view] setFrame: [targetView bounds]];
-    #    [[propertyView view] setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
-
-    #p controller.view
-        @mainView.view.addSubview controller.view
   end
 end
 

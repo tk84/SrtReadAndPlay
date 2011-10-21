@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		457BA5261451D63B00573FD9 /* Media.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5251451D63B00573FD9 /* Media.xib */; };
+		457BA5281451D71700573FD9 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5271451D71700573FD9 /* Media.rb */; };
 		45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7C14519CD4004A282F /* Cocoa.framework */; };
 		45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7E14519CD4004A282F /* MacRuby.framework */; };
 		45F6CF8614519CD4004A282F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8414519CD4004A282F /* InfoPlist.strings */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		457BA5251451D63B00573FD9 /* Media.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Media.xib; sourceTree = "<group>"; };
+		457BA5271451D71700573FD9 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
 		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F6CF7C14519CD4004A282F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45F6CF7E14519CD4004A282F /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
@@ -46,6 +50,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		457BA5171451D5D400573FD9 /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+				457BA5251451D63B00573FD9 /* Media.xib */,
+				45F6CF8B14519CD4004A282F /* MainMenu.xib */,
+				45F6CF9F14519E00004A282F /* Timeline.xib */,
+			);
+			name = NIBs;
+			sourceTree = "<group>";
+		};
 		45F6CF6D14519CD4004A282F = {
 			isa = PBXGroup;
 			children = (
@@ -75,8 +89,10 @@
 		45F6CF8114519CD4004A282F /* SrtReadAndPlay */ = {
 			isa = PBXGroup;
 			children = (
+				457BA5171451D5D400573FD9 /* NIBs */,
 				45F6CF9114519CD4004A282F /* AppDelegate.rb */,
 				45F6CFA114519E51004A282F /* Timeline.rb */,
+				457BA5271451D71700573FD9 /* Media.rb */,
 				45F6CF8A14519CD4004A282F /* Resources */,
 				45F6CF8E14519CD4004A282F /* Other Sources */,
 				45F6CF8214519CD4004A282F /* Supporting Files */,
@@ -98,8 +114,6 @@
 		45F6CF8A14519CD4004A282F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				45F6CF8B14519CD4004A282F /* MainMenu.xib */,
-				45F6CF9F14519E00004A282F /* Timeline.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -185,6 +199,8 @@
 				45F6CF9214519CD4004A282F /* AppDelegate.rb in Resources */,
 				45F6CFA014519E00004A282F /* Timeline.xib in Resources */,
 				45F6CFA214519E51004A282F /* Timeline.rb in Resources */,
+				457BA5261451D63B00573FD9 /* Media.xib in Resources */,
+				457BA5281451D71700573FD9 /* Media.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +347,7 @@
 				45F6CF9714519CD4004A282F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45F6CF9814519CD4004A282F /* Build configuration list for PBXLegacyTarget "Deployment" */ = {
 			isa = XCConfigurationList;
@@ -339,6 +356,7 @@
 				45F6CF9A14519CD4004A282F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
