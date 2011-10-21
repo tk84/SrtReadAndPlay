@@ -14,19 +14,23 @@
 		45F6CF8D14519CD4004A282F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8B14519CD4004A282F /* MainMenu.xib */; };
 		45F6CF9014519CD4004A282F /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8F14519CD4004A282F /* rb_main.rb */; };
 		45F6CF9214519CD4004A282F /* AppDelegate.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF9114519CD4004A282F /* AppDelegate.rb */; };
+		45F6CFA014519E00004A282F /* Timeline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF9F14519E00004A282F /* Timeline.xib */; };
+		45F6CFA214519E51004A282F /* Timeline.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CFA114519E51004A282F /* Timeline.rb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F6CF7C14519CD4004A282F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45F6CF7E14519CD4004A282F /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
-		45F6CF8314519CD4004A282F /* SrtReadAndPlay-Info.plist */ = {isa = PBXFileReference; path = "SrtReadAndPlay-Info.plist"; sourceTree = "<group>"; };
+		45F6CF8314519CD4004A282F /* SrtReadAndPlay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SrtReadAndPlay-Info.plist"; sourceTree = "<group>"; };
 		45F6CF8514519CD4004A282F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45F6CF8714519CD4004A282F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		45F6CF8914519CD4004A282F /* SrtReadAndPlay-Prefix.pch */ = {isa = PBXFileReference; path = "SrtReadAndPlay-Prefix.pch"; sourceTree = "<group>"; };
+		45F6CF8914519CD4004A282F /* SrtReadAndPlay-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SrtReadAndPlay-Prefix.pch"; sourceTree = "<group>"; };
 		45F6CF8C14519CD4004A282F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		45F6CF8F14519CD4004A282F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		45F6CF9114519CD4004A282F /* AppDelegate.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = AppDelegate.rb; sourceTree = "<group>"; };
+		45F6CF9F14519E00004A282F /* Timeline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Timeline.xib; sourceTree = "<group>"; };
+		45F6CFA114519E51004A282F /* Timeline.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Timeline.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				45F6CF9114519CD4004A282F /* AppDelegate.rb */,
+				45F6CFA114519E51004A282F /* Timeline.rb */,
 				45F6CF8A14519CD4004A282F /* Resources */,
 				45F6CF8E14519CD4004A282F /* Other Sources */,
 				45F6CF8214519CD4004A282F /* Supporting Files */,
@@ -94,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				45F6CF8B14519CD4004A282F /* MainMenu.xib */,
+				45F6CF9F14519E00004A282F /* Timeline.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -177,6 +183,8 @@
 				45F6CF8D14519CD4004A282F /* MainMenu.xib in Resources */,
 				45F6CF9014519CD4004A282F /* rb_main.rb in Resources */,
 				45F6CF9214519CD4004A282F /* AppDelegate.rb in Resources */,
+				45F6CFA014519E00004A282F /* Timeline.xib in Resources */,
+				45F6CFA214519E51004A282F /* Timeline.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
