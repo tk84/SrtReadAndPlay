@@ -19,6 +19,10 @@ class AppDelegate
     # Insert code here to initialize your application
   end
 
+  def windowWillClose aNotification
+
+  end
+
   def loadMedia sender
     panel = NSOpenPanel.openPanel
     panel.setAllowedFileTypes ['mp4', 'm4v']
@@ -28,8 +32,10 @@ class AppDelegate
 
       if media.model = MediaModel.makeModel(panel.URL)
         @mediaPath.setURL panel.URL
+        @media.stop if @media
         @media = media.initWithNibName 'Media', bundle:nil
         @media.view             # awakeFromNibに通知を送る的な
+        @timeline.selectCallback = @media.registCallback if @timeline
       end
     end
   end
@@ -43,12 +49,12 @@ class AppDelegate
 
       if timeline.model = TimelineModel.makeModel(panel.URL)
         @timelinePath.setURL panel.URL
-        @timeline = timeline.initWithNibName 'Timeline', bundle:nil
+        @timeline.view.removeFromSuperview if @timeline
+        @timeline = timeline.initWithNibName('Timeline', bundle:nil)
         @timeline.view.setFrame @timelinePlaceholder.bounds
         @timeline.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
         @timelinePlaceholder.addSubview @timeline.view
-
-        @timeline.selectCallback = @media.registCallback
+        @timeline.selectCallback = @media.registCallback if @media
      end
     end
   end

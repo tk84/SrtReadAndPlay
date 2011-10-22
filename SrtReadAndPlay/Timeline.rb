@@ -14,6 +14,17 @@ class TimelineController < NSViewController
   def awakeFromNib
   end
 
+  def release
+    view = nil
+    @model = nil
+    @selectCallback = nil
+  end
+
+  def finalize
+    super
+    p 'TimelineController finalize'
+  end
+
   def tableView aTableView, objectValueForTableColumn:aTableColumn, row:rowIndex
     @model.getOne aTableColumn.identifier, rowIndex
   end
@@ -26,6 +37,8 @@ class TimelineController < NSViewController
     selectCallback.call @model.region sender.selectedRow if selectCallback
   end
 end
+
+require 'nkf'
 
 class TimelineModel
   def initialize table
@@ -46,6 +59,7 @@ class TimelineModel
         section = ''
 
         file.each_line do |line|
+          line = NKF.nkf('--utf8', line)
           if line =~ /^(\r\n|\n)/ then
             if section =~ /(?:^|\r?\n)(\d+)\r?\n(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\r?\n(.*)/m then
               table[:seq].push Regexp.last_match 1

@@ -14,6 +14,15 @@ class MediaController < NSViewController
     @model.player.play
   end
 
+  def stop
+    @model.player.stop
+  end
+
+  def finalize
+    super
+    p 'MediaController finalize'
+  end
+
   def registCallback
     Proc.new {|stime, etime|
       @model.play stime, time:etime

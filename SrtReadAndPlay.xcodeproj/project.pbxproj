@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A61452178E00CBE066 /* CoreMedia.framework */; };
 		454D52AA1452179600CBE066 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A91452179600CBE066 /* AVFoundation.framework */; };
+		454D52AD1452D4DE00CBE066 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 454D52AC1452D4DE00CBE066 /* TODO */; };
 		457BA5261451D63B00573FD9 /* Media.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5251451D63B00573FD9 /* Media.xib */; };
 		457BA5281451D71700573FD9 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5271451D71700573FD9 /* Media.rb */; };
 		45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7C14519CD4004A282F /* Cocoa.framework */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		454D52A61452178E00CBE066 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		454D52A91452179600CBE066 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		454D52AC1452D4DE00CBE066 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		457BA5251451D63B00573FD9 /* Media.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Media.xib; sourceTree = "<group>"; };
 		457BA5271451D71700573FD9 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
 		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		454D52AB1452D4C400CBE066 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				454D52AC1452D4DE00CBE066 /* TODO */,
+			);
+			name = other;
+			sourceTree = "<group>";
+		};
 		457BA5171451D5D400573FD9 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 				45F6CF8A14519CD4004A282F /* Resources */,
 				45F6CF8E14519CD4004A282F /* Other Sources */,
 				45F6CF8214519CD4004A282F /* Supporting Files */,
+				454D52AB1452D4C400CBE066 /* other */,
 			);
 			path = SrtReadAndPlay;
 			sourceTree = "<group>";
@@ -209,6 +220,7 @@
 				45F6CFA214519E51004A282F /* Timeline.rb in Resources */,
 				457BA5261451D63B00573FD9 /* Media.xib in Resources */,
 				457BA5281451D71700573FD9 /* Media.rb in Resources */,
+				454D52AD1452D4DE00CBE066 /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
