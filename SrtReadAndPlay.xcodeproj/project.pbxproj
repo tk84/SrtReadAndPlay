@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A61452178E00CBE066 /* CoreMedia.framework */; };
+		454D52AA1452179600CBE066 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A91452179600CBE066 /* AVFoundation.framework */; };
 		457BA5261451D63B00573FD9 /* Media.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5251451D63B00573FD9 /* Media.xib */; };
 		457BA5281451D71700573FD9 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5271451D71700573FD9 /* Media.rb */; };
 		45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7C14519CD4004A282F /* Cocoa.framework */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		454D52A61452178E00CBE066 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		454D52A91452179600CBE066 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		457BA5251451D63B00573FD9 /* Media.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Media.xib; sourceTree = "<group>"; };
 		457BA5271451D71700573FD9 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
 		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454D52AA1452179600CBE066 /* AVFoundation.framework in Frameworks */,
+				454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */,
 				45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */,
 				45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */,
 			);
@@ -80,6 +86,8 @@
 		45F6CF7B14519CD4004A282F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				454D52A91452179600CBE066 /* AVFoundation.framework */,
+				454D52A61452178E00CBE066 /* CoreMedia.framework */,
 				45F6CF7C14519CD4004A282F /* Cocoa.framework */,
 				45F6CF7E14519CD4004A282F /* MacRuby.framework */,
 			);

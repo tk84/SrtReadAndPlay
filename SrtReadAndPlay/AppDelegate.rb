@@ -10,6 +10,7 @@
 class AppDelegate
   attr_accessor :window
   attr_accessor :timeline
+  attr_accessor :timelinePlaceholder
   attr_accessor :timelinePath
   attr_accessor :media
   attr_accessor :mediaPath
@@ -24,15 +25,13 @@ class AppDelegate
 
     if NSOKButton == panel.runModal
       media = MediaController.alloc;
+
       if media.model = MediaModel.makeModel(panel.URL)
         @mediaPath.setURL panel.URL
-        # media.initWithNibName 'Media', bundle:nil
-        # media.view.setFrame @media.view.bounds
-        # media.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
-        # @media.view.addSubview media.view
+        @media = media.initWithNibName 'Media', bundle:nil
+        @media.view             # awakeFromNibに通知を送る的な
       end
     end
-
   end
 
   def loadSrt sender
@@ -44,11 +43,13 @@ class AppDelegate
 
       if timeline.model = TimelineModel.makeModel(panel.URL)
         @timelinePath.setURL panel.URL
-        timeline.initWithNibName 'Timeline', bundle:nil
-        timeline.view.setFrame @timeline.view.bounds
-        timeline.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
-        @timeline.view.addSubview timeline.view
-      end
+        @timeline = timeline.initWithNibName 'Timeline', bundle:nil
+        @timeline.view.setFrame @timelinePlaceholder.bounds
+        @timeline.view.setAutoresizingMask NSViewWidthSizable | NSViewHeightSizable
+        @timelinePlaceholder.addSubview @timeline.view
+
+        @timeline.selectCallback = @media.registCallback
+     end
     end
   end
 end

@@ -11,22 +11,36 @@ class MediaController < NSViewController
   attr_accessor :model
 
   def awakeFromNib
-    # view.setURL @model.url
+    @model.player.play
   end
 
+  def registCallback
+    Proc.new {|stime, etime|
+      @model.play stime, time:etime
+    }
+  end
 end
 
 class MediaModel
-  def initialize url
-    @url = url
+  attr_accessor :player
+
+  def initialize player
+    @player = player
   end
 
   def self.makeModel url
-    model = self.new url
+    model = false
+
+    if player = AVAudioPlayer.alloc.initWithContentsOfURL(url, error:nil)
+      model = self.new player
+    end
+
     return model
   end
 
-  def url
-    return @url
+  def play stime, time:etime
+    @player.currentTime = stime
+#    p @player.currentTime
+#    @player.seekToTime CMTimeMakeWithSeconds(stime, 1)
   end
 end
