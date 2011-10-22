@@ -11,7 +11,7 @@ class MediaController < NSViewController
   attr_accessor :model
 
   def awakeFromNib
-    @model.player.play
+#    @model.player.play
   end
 
   def stop
@@ -40,7 +40,9 @@ class MediaModel
   def self.makeModel url
     model = false
 
-    if player = AVAudioPlayer.alloc.initWithContentsOfURL(url, error:nil)
+    asset = AVAsset.assetWithURL url
+    if asset.isPlayable
+      player = AVPlayer.playerWithPlayerItem AVPlayerItem.playerItemWithAsset asset
       model = self.new player
     end
 
@@ -48,8 +50,30 @@ class MediaModel
   end
 
   def play stime, time:etime
-    @player.currentTime = stime
-#    p @player.currentTime
-#    @player.seekToTime CMTimeMakeWithSeconds(stime, 1)
+
+    @player.pause
+    @player.seekToTime CMTimeMakeWithSeconds(stime, 1)
+
+    # Timer.setTimeout 1000 {
+    #   @player.pause
+    # }
+
+    # p stime
+    # p etime
+    # p CMTimeMakeWithSeconds(stime, 1)
+    # p CMTimeMakeWithSeconds(etime, 1)
+
+
+    times = [NSValue.valueWithCMTime(CMTimeMakeWithSeconds(etime, 1))]
+    @player.removeTimeObserver @timeObserverToken if @timeObserverToken
+    @timeObserverToken = @player.addBoundaryTimeObserverForTimes times, queue:nil, usingBlock:Proc.new {
+      @player.pause
+      puts @player.currentTime
+      puts count
+      count += 1
+    }
+
+    @player.play
+
   end
 end
