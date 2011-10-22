@@ -47,8 +47,6 @@ class TimelineModel
 
   def region tableView
     indexSet = tableView.selectedRowIndexes
-    p indexSet.firstIndex
-    p indexSet.lastIndex
     [@table[:btime][indexSet.firstIndex], @table[:etime][indexSet.lastIndex]]
   end
 

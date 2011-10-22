@@ -25,7 +25,7 @@ class AppDelegate
 
   def loadMedia sender
     panel = NSOpenPanel.openPanel
-    panel.setAllowedFileTypes ['mp4', 'm4v', 'mp3']
+    panel.setAllowedFileTypes AVURLAsset.audiovisualTypes
 
     if NSOKButton == panel.runModal
       media = MediaController.alloc;
