@@ -51,12 +51,12 @@ class MediaModel
     return model
   end
 
-  def play stime, time:etime
+  def play stime, time:etime  
     @player.pause
-    @player.seekToTime CMTimeMakeWithSeconds(stime, 1)
+    @player.seekToTime CMTimeMakeWithSeconds(stime, 600)
 
     @player.removeTimeObserver @timeObserverToken if @timeObserverToken
-    times = [NSValue.valueWithCMTime(CMTimeMakeWithSeconds(etime, 1))]
+    times = [NSValue.valueWithCMTime(CMTimeMakeWithSeconds(etime, 600))]
     @timeObserverToken = @player.
       addBoundaryTimeObserverForTimes times, queue:nil, usingBlock:Proc.new {
       @player.pause

@@ -64,31 +64,31 @@ class TimelineModel
           if line =~ /^(\r\n|\n)/ then
             if section =~ /(?:^|\r?\n)(\d+)\r?\n(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\r?\n(.*)/m then
               table[:seq].push Regexp.last_match 1
-              table[:btime].push(
-                            (Regexp.last_match(2).to_f * 60 * 60) +
-                            (Regexp.last_match(3).to_f * 60) +
-                            (Regexp.last_match(4).to_f * 1) +
-                            (Regexp.last_match(5).to_f / 1000))
-              table[:etime].push(
-                            (Regexp.last_match(6).to_f * 60 * 60) +
-                            (Regexp.last_match(7).to_f * 60) +
-                            (Regexp.last_match(8).to_f * 1) +
-                            (Regexp.last_match(9).to_f / 1000))
-              table[:beginLabel].push(
-                                 Regexp.last_match(2) + ':' +
-                                 Regexp.last_match(3) + ':' +
-                                 Regexp.last_match(4) + '.' +
-                                 Regexp.last_match(5))
-              table[:endLabel].push(
-                               Regexp.last_match(6) + ':' +
-                               Regexp.last_match(7) + ':' +
-                               Regexp.last_match(8) + '.' +
-                               Regexp.last_match(9))
-              table[:textLabel].push(
-                                Regexp.last_match(10).chomp.
-                                gsub(/(<[^>]*>|\s)/, ' ').
-                                gsub(/\s+/, ' ').
-                                gsub(/(^\s|\s$)/, ''))
+              table[:btime].
+                push((Regexp.last_match(2).to_f * 60 * 60) +
+                (Regexp.last_match(3).to_f * 60) +
+                (Regexp.last_match(4).to_f * 1) +
+                (Regexp.last_match(5).to_f / 1000))
+              table[:etime].
+                push((Regexp.last_match(6).to_f * 60 * 60) +
+                (Regexp.last_match(7).to_f * 60) +
+                (Regexp.last_match(8).to_f * 1) +
+                (Regexp.last_match(9).to_f / 1000))
+              table[:beginLabel].
+                push(Regexp.last_match(2) + ':' +
+                Regexp.last_match(3) + ':' +
+                Regexp.last_match(4) + '.' +
+                Regexp.last_match(5))
+              table[:endLabel].
+                push(Regexp.last_match(6) + ':' +
+                Regexp.last_match(7) + ':' +
+                Regexp.last_match(8) + '.' +
+                Regexp.last_match(9))
+              table[:textLabel].
+                push(Regexp.last_match(10).chomp.
+  #gsub(/(<[^>]*>|\s)/, ' ').
+                gsub(/\s+/, ' ').
+                gsub(/(^\s|\s$)/, ''))
             end
             section = ''
           else
