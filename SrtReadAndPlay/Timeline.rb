@@ -48,8 +48,12 @@ class TimelineModel
     p @dbFile
 
     create_table
-#    insert_into
-    records.each {|record| insert_into record }
+
+    records.each do |record|
+      record[:uniqid] = MyFunction.uniqid
+      insert_into record
+    end
+
     create_temp_table
     refresh_tmp_table
   end
@@ -103,19 +107,24 @@ EOF
   end
 
   def create_table
-    @db.execute <<'EOF'
+    @db.execute_batch <<'EOF'
 CREATE TABLE master (
+  uniqid TEXT,
   sequence INTEGER,
   begin_time REAL,
   end_time REAL,
   caption TEXT
 );
+
+CREATE UNIQUE INDEX uniqid ON master (uniqid);
+CREATE UNIQUE INDEX time ON master (begin_time, end_time);
 EOF
   end
 
   def create_temp_table
     @db.execute <<'EOF'
 CREATE TEMP TABLE label (
+  uniqid TEXT,
   rowIndex INTEGER,
   beginLabel TEXT,
   endLabel TEXT,
@@ -128,21 +137,19 @@ EOF
     order = 'sequence ASC'      # (sequence DESC|RANDOM())
 
     master = @db.query(<<'EOF', order:order)
-SELECT
-  begin_time,
-  end_time,
-  caption
-FROM master
+SELECT * FROM master
 ORDER BY :order
 EOF
 
-    btime = 0;
-    etime = 1;
-    caption = 2;
+    uniqid = 0;
+    btime = 2;
+    etime = 3;
+    caption = 4;
 
     rowIndex = 0
     master.each do |row|
       data = []
+      data << row[uniqid]
       data << rowIndex
       rowIndex += 1
       data << time_format(row[btime])
@@ -153,14 +160,14 @@ EOF
         gsub(/(^\s|\s$)/, '')
 
       @db.execute(<<'EOF', data)
-INSERT INTO label VALUES (?, ?, ?, ?);
+INSERT INTO label VALUES (?, ?, ?, ?, ?);
 EOF
     end
   end
 
   def insert_into record
     @db.execute <<'EOF', record
-INSERT INTO master VALUES (:seq, :btime, :etime, :caption);
+INSERT INTO master VALUES (:uniqid, :seq, :btime, :etime, :caption);
 EOF
   end
 
