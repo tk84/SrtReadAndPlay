@@ -44,6 +44,33 @@ class TimelineModel
 
     @dbFile = NSTemporaryDirectory() + MyFunction.uniqid + '.db'
     @db = SQLite3::Database.new(@dbFile)
+    p @dbFile
+
+    create_table
+    insert_into
+  end
+
+  def finalize
+    super
+    @db.close if @db
+    File.delete @dbFile if @dbFile
+  end
+
+  def create_table
+    @db.execute <<'EOF'
+CREATE TABLE master (
+  sequence INTEGER,
+  begin_time REAL,
+  end_time REAL
+);
+EOF
+  end
+
+  def insert_into seq, stime, etime
+    @db.execute(<<'EOF', {seq:seq, stime:stime, etime:etime})
+INSERT INTO master (sequence, begin_time, end_time)
+  VALUES (:seq, :stime, :etime)
+EOF
   end
 
   def region tableView
@@ -56,8 +83,8 @@ class TimelineModel
 
     if FileTest.file? url.path and FileTest.readable? url.path
       File.open url.path, 'r' do |file|
-        table = {btime:[], etime:[], text:[], bmsec:[], emsec:[],
-          beginLabel:[], endLabel:[], textLabel:[], seq:[]}
+        # table = {btime:[], etime:[], text:[], bmsec:[], emsec:[],
+        #   beginLabel:[], endLabel:[], textLabel:[], seq:[]}
         section = ''
 
         file.each_line do |line|

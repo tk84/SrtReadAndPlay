@@ -20,7 +20,7 @@ class AppDelegate
   end
 
   def windowWillClose aNotification
-
+    NSApp.terminate self
   end
 
   def loadMedia sender

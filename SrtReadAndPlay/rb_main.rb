@@ -25,6 +25,7 @@ require 'Timeline'
 require 'Media'
 require 'MyFunction'
 require 'nkf'
+require 'sqlite3'
 
 
 # Starting the Cocoa main loop.
