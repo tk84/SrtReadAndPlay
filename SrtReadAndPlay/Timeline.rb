@@ -41,8 +41,6 @@ end
 
 class TimelineModel
   def initialize records
-#    @table = table
-
     @dbFile = NSTemporaryDirectory() + MyFunction.uniqid + '.db'
     @db = SQLite3::Database.new(@dbFile)
     p @dbFile
@@ -55,7 +53,7 @@ class TimelineModel
     end
 
     create_temp_table
-    refresh_tmp_table
+    refresh_tmp_table 0
   end
 
   def finalize
@@ -82,24 +80,6 @@ WHERE rowIndex = :index
 EOF
   end
 
-  def one id, index
-    row(index).fetch(id.to_s, 'unknown')
-  end
-
-  def row index
-    columns, row, *kipple = @db.execute2 <<'EOF', index:index
-SELECT
-  begin_time AS btime,
-  end_time AS etime,
-  caption
-FROM master
-LIMIT :index, 1
-EOF
-
-# #    puts "index:#{index}, columns:#{columns}, rows:#{rows}"
-     Hash[*[columns,row].transpose.flatten(1)]
-  end
-
   def count
     @db.get_first_value <<'EOF'
 SELECT count(sequence) FROM master;
@@ -122,7 +102,7 @@ EOF
   end
 
   def create_temp_table
-    @db.execute <<'EOF'
+    @db.execute_batch <<'EOF'
 CREATE TEMP TABLE label (
   uniqid TEXT,
   rowIndex INTEGER,
@@ -130,15 +110,23 @@ CREATE TEMP TABLE label (
   endLabel TEXT,
   textLabel TEXT
 );
+
+CREATE UNIQUE INDEX uniqid ON label (uniqid);
+CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 EOF
   end
 
-  def refresh_tmp_table
-    order = 'sequence ASC'      # (sequence DESC|RANDOM())
+  def refresh_tmp_table order_param
+    order =
+      case order_param
+      when 1 then 'sequence DESC'
+      when 2 then 'RANDOM()'
+      else 'sequence ASC'
+      end
 
-    master = @db.query(<<'EOF', order:order)
+    master = @db.query <<"EOF"
 SELECT * FROM master
-ORDER BY :order
+ORDER BY #{order}
 EOF
 
     uniqid = 0;
@@ -165,6 +153,14 @@ EOF
     end
   end
 
+  def get_uniqid_from_label rowIndex
+    @db.get_first_value 'SELECT uniqid FROM label WHERE rowIndex = ?', rowIndex
+  end
+
+  def get_times_from_master_by_uniqid uniqid
+    @db.get_first_row 'SELECT begin_time, end_time FROM master WHERE uniqid = ?', uniqid
+  end
+
   def insert_into record
     @db.execute <<'EOF', record
 INSERT INTO master VALUES (:uniqid, :seq, :btime, :etime, :caption);
@@ -172,10 +168,16 @@ EOF
   end
 
   def region tableView
-    indexSet = tableView.selectedRowIndexes
-    [one(:btime, indexSet.firstIndex), one(:etime, indexSet.lastIndex)]
+    min_btime = Float::MAX
+    max_etime = 0
+    tableView.selectedRowIndexes.
+      enumerateIndexesUsingBlock Proc.new {|idx, stop|
+      btime, etime = get_times_from_master_by_uniqid(get_uniqid_from_label(idx))
+      min_btime = btime if min_btime > btime
+      max_etime = etime if max_etime < etime
+    }
 
-#    [@table[:btime][indexSet.firstIndex], @table[:etime][indexSet.lastIndex]]
+    [min_btime, max_etime]
   end
 
   def self.makeModel url
