@@ -38,11 +38,12 @@ class TimelineController < NSViewController
   end
 end
 
-require 'nkf'
-
 class TimelineModel
   def initialize table
     @table = table
+
+    @dbFile = NSTemporaryDirectory() + MyFunction.uniqid + '.db'
+    @db = SQLite3::Database.new(@dbFile)
   end
 
   def region tableView
