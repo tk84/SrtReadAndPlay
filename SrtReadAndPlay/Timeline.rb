@@ -50,6 +50,8 @@ class TimelineModel
     create_table
 #    insert_into
     records.each {|record| insert_into record }
+    create_temp_table
+    refresh_tmp_table
   end
 
   def finalize
@@ -70,28 +72,10 @@ class TimelineModel
   end
 
   def label id, index
-    case id
-    when 'beginLabel'
-      time_format one(:btime, index)
-#       time_format @db.get_first_value(<<'EOF', index:index)
-# SELECT begin_time FROM master LIMIT :index, 1
-# EOF
-    when 'endLabel'
-      time_format one(:etime, index)
-#       time_format @db.get_first_value(<<'EOF', index:index)
-# SELECT end_time FROM master LIMIT :index, 1
-# EOF
-    when 'textLabel'
-#       caption =  @db.get_first_value(<<'EOF', index:index)
-# SELECT caption FROM master LIMIT :index, 1
-# EOF
-      one(:caption, index).
-        # gsub(/(<[^>]*>|\s)/, ' ').
-        gsub(/\s+/, ' ').
-        gsub(/(^\s|\s$)/, '')
-    else
-      'unknown'
-    end
+    @db.get_first_value(<<"EOF",  index:index)
+SELECT #{id} FROM label
+WHERE rowIndex = :index
+EOF
   end
 
   def one id, index
@@ -127,6 +111,51 @@ CREATE TABLE master (
   caption TEXT
 );
 EOF
+  end
+
+  def create_temp_table
+    @db.execute <<'EOF'
+CREATE TEMP TABLE label (
+  rowIndex INTEGER,
+  beginLabel TEXT,
+  endLabel TEXT,
+  textLabel TEXT
+);
+EOF
+  end
+
+  def refresh_tmp_table
+    order = 'sequence ASC'      # (sequence DESC|RANDOM())
+
+    master = @db.query(<<'EOF', order:order)
+SELECT
+  begin_time,
+  end_time,
+  caption
+FROM master
+ORDER BY :order
+EOF
+
+    btime = 0;
+    etime = 1;
+    caption = 2;
+
+    rowIndex = 0
+    master.each do |row|
+      data = []
+      data << rowIndex
+      rowIndex += 1
+      data << time_format(row[btime])
+      data << time_format(row[etime])
+      data << row[caption].
+        # gsub(/(<[^>]*>|\s)/, ' ').
+        gsub(/\s+/, ' ').
+        gsub(/(^\s|\s$)/, '')
+
+      @db.execute(<<'EOF', data)
+INSERT INTO label VALUES (?, ?, ?, ?);
+EOF
+    end
   end
 
   def insert_into record
