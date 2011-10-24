@@ -14,19 +14,12 @@ class TimelineController < NSViewController
   def awakeFromNib
   end
 
-  def release
-    view = nil
-    @model = nil
-    @selectCallback = nil
-  end
-
   def finalize
     super
     p 'TimelineController finalize'
   end
 
   def tableView aTableView, objectValueForTableColumn:aTableColumn, row:rowIndex
-#    @model.getOne aTableColumn.identifier, rowIndex
     @model.label aTableColumn.identifier, rowIndex
   end
 
@@ -45,13 +38,14 @@ class TimelineModel
     @db = SQLite3::Database.new(@dbFile)
     p @dbFile
 
+    # 本データテーブル
     create_table
-
     records.each do |record|
       record[:uniqid] = MyFunction.uniqid
       insert_into record
     end
 
+    # 表示用データテーブル
     create_temp_table
     refresh_tmp_table 0
   end
@@ -81,9 +75,7 @@ EOF
   end
 
   def count
-    @db.get_first_value <<'EOF'
-SELECT count(sequence) FROM master;
-EOF
+    @db.get_first_value 'SELECT count(uniqid) FROM label;'
   end
 
   def create_table
@@ -147,9 +139,7 @@ EOF
         gsub(/\s+/, ' ').
         gsub(/(^\s|\s$)/, '')
 
-      @db.execute(<<'EOF', data)
-INSERT INTO label VALUES (?, ?, ?, ?, ?);
-EOF
+      @db.execute 'INSERT INTO label VALUES (?, ?, ?, ?, ?);', data
     end
   end
 
@@ -167,6 +157,7 @@ INSERT INTO master VALUES (:uniqid, :seq, :btime, :etime, :caption);
 EOF
   end
 
+  # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出
   def region tableView
     min_btime = Float::MAX
     max_etime = 0
@@ -185,8 +176,6 @@ EOF
 
     if FileTest.file? url.path and FileTest.readable? url.path
       File.open url.path, 'r' do |file|
-        # table = {btime:[], etime:[], text:[], bmsec:[], emsec:[],
-        #   beginLabel:[], endLabel:[], textLabel:[], seq:[]}
         records = []
         section = ''
 
@@ -213,32 +202,6 @@ EOF
                   (Regexp.last_match(9).to_f / 1000)),
                 caption:Regexp.last_match(10).chomp
               }
-
-  #             table[:btime].
-  #               push((Regexp.last_match(2).to_f * 60 * 60) +
-  #               (Regexp.last_match(3).to_f * 60) +
-  #               (Regexp.last_match(4).to_f * 1) +
-  #               (Regexp.last_match(5).to_f / 1000))
-  #             table[:etime].
-  #               push((Regexp.last_match(6).to_f * 60 * 60) +
-  #               (Regexp.last_match(7).to_f * 60) +
-  #               (Regexp.last_match(8).to_f * 1) +
-  #               (Regexp.last_match(9).to_f / 1000))
-  #             table[:beginLabel].
-  #               push(Regexp.last_match(2) + ':' +
-  #               Regexp.last_match(3) + ':' +
-  #               Regexp.last_match(4) + '.' +
-  #               Regexp.last_match(5))
-  #             table[:endLabel].
-  #               push(Regexp.last_match(6) + ':' +
-  #               Regexp.last_match(7) + ':' +
-  #               Regexp.last_match(8) + '.' +
-  #               Regexp.last_match(9))
-  #             table[:textLabel].
-  #               push(Regexp.last_match(10).chomp.
-  # #gsub(/(<[^>]*>|\s)/, ' ').
-  #               gsub(/\s+/, ' ').
-  #               gsub(/(^\s|\s$)/, ''))
             end
             section = ''
           else
@@ -246,7 +209,7 @@ EOF
           end
         end
 
-          model = self.new records if records.count
+        model = self.new records if records.count
       end
     end
 
