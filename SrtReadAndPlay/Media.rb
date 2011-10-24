@@ -51,7 +51,7 @@ class MediaModel
     return model
   end
 
-  def play stime, time:etime  
+  def play stime, time:etime
     @player.pause
     @player.seekToTime CMTimeMakeWithSeconds(stime, 600)
 

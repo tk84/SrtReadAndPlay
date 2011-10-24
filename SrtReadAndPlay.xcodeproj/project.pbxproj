@@ -37,8 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45076F571453369A0002279F /* Timer.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Timer.rb; path = ../../../../../lib/Timer.rb; sourceTree = "<group>"; };
-		450DCDFE145538E600539006 /* MyFunction.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = MyFunction.rb; path = ../../../../../lib/MyFunction.rb; sourceTree = "<group>"; };
+		45076F571453369A0002279F /* Timer.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Timer.rb; path = ../../../../lib/Timer.rb; sourceTree = "<group>"; };
+		450DCDFE145538E600539006 /* MyFunction.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = MyFunction.rb; path = ../../../../lib/MyFunction.rb; sourceTree = "<group>"; };
 		454D52A61452178E00CBE066 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		454D52A91452179600CBE066 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		454D52AC1452D4DE00CBE066 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
