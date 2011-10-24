@@ -89,6 +89,13 @@ EOF
 
         file.each_line do |line|
           line = NKF.nkf('--utf8', line)
+
+          # ファイル終端の処理
+          if file.eof?
+            section << line
+            line = "\n"
+          end
+
           if line =~ /^(\r\n|\n)/ then
             if section =~ /(?:^|\r?\n)(\d+)\r?\n(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\r?\n(.*)/m then
               table[:seq].push Regexp.last_match 1
