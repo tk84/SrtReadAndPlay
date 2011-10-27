@@ -26,7 +26,7 @@ require 'Media'
 require 'MyFunction'
 require 'nkf'
 require 'sqlite3'
-
+require 'Extsource'
 
 # Starting the Cocoa main loop.
 NSApplicationMain(0, nil)

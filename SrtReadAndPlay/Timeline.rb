@@ -39,23 +39,30 @@ class TimelineModel
     @db = SQLite3::Database.new(':memory:')
     p @dbFile
 
+    @ext = Tk84::Extsource.instance
+    @ext.parser:sql, Tk84::Extsource::Sql
+    @ext.source:sql, :all, File.dirname(__FILE__)+'/all.sql'
+
 
     # 本データテーブル
-    create_table
+    @db.execute @ext.sql:all,:create_master
+
     records.each do |record|
       record[:uniqid] = Tk84::MyFunction.uniqid
-      insert_into record
+#      insert_into record
+      @db.execute @ext.sql(:all,:insert_into_master), record
     end
 
     # 表示用データテーブル
-    create_temp_table
+    @db.execute @ext.sql:all,:create_label
+#    create_temp_table
     refresh_tmp_table 0
   end
 
   def finalize
     super
     @db.close if @db
-    File.delete @dbFile if @dbFile
+    #File.delete @dbFile if @dbFile
   end
 
   def time_format ftime
@@ -70,44 +77,11 @@ class TimelineModel
   end
 
   def label id, index
-    @db.get_first_value(<<"EOF",  index:index)
-SELECT #{id} FROM label
-WHERE rowIndex = :index
-EOF
+    @db.get_first_value @ext.sql(:all,:select_first_value,id:id), index:index
   end
 
   def count
     @db.get_first_value 'SELECT count(uniqid) FROM label;'
-  end
-
-  def create_table
-    @db.execute_batch <<'EOF'
-CREATE TABLE master (
-  uniqid TEXT,
-  sequence INTEGER,
-  begin_time REAL,
-  end_time REAL,
-  caption TEXT
-);
-
-CREATE UNIQUE INDEX uniqid ON master (uniqid);
-CREATE UNIQUE INDEX time ON master (begin_time, end_time);
-EOF
-  end
-
-  def create_temp_table
-    @db.execute_batch <<'EOF'
-CREATE TEMP TABLE label (
-  uniqid TEXT,
-  rowIndex INTEGER,
-  beginLabel TEXT,
-  endLabel TEXT,
-  textLabel TEXT
-);
-
-CREATE UNIQUE INDEX uniqid ON label (uniqid);
-CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
-EOF
   end
 
   def refresh_tmp_table order_param
@@ -118,10 +92,7 @@ EOF
       else 'sequence ASC'
       end
 
-    master = @db.query <<"EOF"
-SELECT * FROM master
-ORDER BY #{order}
-EOF
+    master = @db.query @ext.sql(:all,:select_master_with_order,order:order)
 
     uniqid = 0;
     btime = 2;
@@ -145,27 +116,16 @@ EOF
     end
   end
 
-  def get_uniqid_from_label rowIndex
-    @db.get_first_value 'SELECT uniqid FROM label WHERE rowIndex = ?', rowIndex
-  end
-
-  def get_times_from_master_by_uniqid uniqid
-    @db.get_first_row 'SELECT begin_time, end_time FROM master WHERE uniqid = ?', uniqid
-  end
-
-  def insert_into record
-    @db.execute <<'EOF', record
-INSERT INTO master VALUES (:uniqid, :seq, :btime, :etime, :caption);
-EOF
-  end
-
   # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出
   def region tableView
     min_btime = Float::MAX
     max_etime = 0
     tableView.selectedRowIndexes.
       enumerateIndexesUsingBlock Proc.new {|idx, stop|
-      btime, etime = get_times_from_master_by_uniqid(get_uniqid_from_label(idx))
+
+      btime, etime = @db.get_first_row @ext.sql(:all,:get_times_from_master_by_uniqid),
+      @db.get_first_value(@ext.sql(:all,:get_uniqid_from_label), idx)
+
       min_btime = btime if min_btime > btime
       max_etime = etime if max_etime < etime
     }
