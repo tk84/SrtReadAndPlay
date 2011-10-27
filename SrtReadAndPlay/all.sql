@@ -26,16 +26,34 @@ CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 SELECT #{id} FROM label
 WHERE rowIndex = :index
 
---:select_master_with_order
+--:select_all_from_master
 SELECT * FROM master
-ORDER BY #{order}
+
+--:order_sequence_desc
+ORDER BY sequence DESC
+--:order_random
+ORDER BY RANDOM()
+--:order_sequence_asc
+ORDER BY sequence ASC
 
 --:insert_into_master
 INSERT INTO master
 VALUES (:uniqid, :seq, :btime, :etime, :caption);
 
+--:insert_into_label
+INSERT INTO label VALUES (?, ?, ?, ?, ?);
+
 --:get_uniqid_from_label
-SELECT uniqid FROM label WHERE rowIndex = ?
+SELECT uniqid FROM label WHERE rowIndex = ?;
 
 --:get_times_from_master_by_uniqid
-SELECT begin_time, end_time FROM master WHERE uniqid = ?
+SELECT begin_time, end_time FROM master WHERE uniqid = ?;
+
+--:test
+SELECT ftime_to_srtime(begin_time) FROM master LIMIT 10;
+
+--:test1
+SELECT oneline(caption) FROM master LIMIT 10;
+
+--:count_rows
+SELECT count(uniqid) FROM label;

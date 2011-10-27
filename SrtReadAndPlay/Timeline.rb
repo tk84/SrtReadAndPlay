@@ -34,10 +34,29 @@ end
 
 class TimelineModel
   def initialize records
-    @dbFile = NSTemporaryDirectory() + Tk84::MyFunction.uniqid + '.db'
-    #    @db = SQLite3::Database.new(@dbFile)
     @db = SQLite3::Database.new(':memory:')
-    p @dbFile
+
+    # dbfunc
+    @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
+      h = ftime / 3600
+      ftime %= 3600
+      m = ftime / 60
+      ftime %= 60
+      s = ftime
+      ftime -= ftime.truncate
+
+      func.result = '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+    end
+
+    # dbfunc
+    @db.create_function 'oneline', 1 do |func, text|
+      newtext = text.
+        # gsub(/(<[^>]*>|\s)/, ' ').
+        gsub(/\s+/, ' ').
+        gsub(/(^\s|\s$)/, '')
+
+      func.result = newtext
+    end
 
     @ext = Tk84::Extsource.instance
     @ext.parser:sql, Tk84::Extsource::Sql
@@ -49,20 +68,18 @@ class TimelineModel
 
     records.each do |record|
       record[:uniqid] = Tk84::MyFunction.uniqid
-#      insert_into record
       @db.execute @ext.sql(:all,:insert_into_master), record
     end
 
     # 表示用データテーブル
     @db.execute @ext.sql:all,:create_label
-#    create_temp_table
     refresh_tmp_table 0
+
   end
 
   def finalize
     super
     @db.close if @db
-    #File.delete @dbFile if @dbFile
   end
 
   def time_format ftime
@@ -81,18 +98,17 @@ class TimelineModel
   end
 
   def count
-    @db.get_first_value 'SELECT count(uniqid) FROM label;'
+    @db.get_first_value @ext.sql:all,:count_rows
   end
 
   def refresh_tmp_table order_param
-    order =
-      case order_param
-      when 1 then 'sequence DESC'
-      when 2 then 'RANDOM()'
-      else 'sequence ASC'
-      end
-
-    master = @db.query @ext.sql(:all,:select_master_with_order,order:order)
+    master = @db.query(
+                 @ext.sql(:all,:select_all_from_master) +
+                 case order_param
+                 when 1 then @ext.sql:all,order_sequence_desc
+                 when 2 then @ext.sql:all,order_random
+                 else @ext.sql:all,:order_sequence_asc
+                 end)
 
     uniqid = 0;
     btime = 2;
@@ -112,7 +128,7 @@ class TimelineModel
         gsub(/\s+/, ' ').
         gsub(/(^\s|\s$)/, '')
 
-      @db.execute 'INSERT INTO label VALUES (?, ?, ?, ?, ?);', data
+      @db.execute @ext.sql(:all,:insert_into_label), data
     end
   end
 
