@@ -34,14 +34,16 @@ end
 
 class TimelineModel
   def initialize records
-    @dbFile = NSTemporaryDirectory() + MyFunction.uniqid + '.db'
-    @db = SQLite3::Database.new(@dbFile)
+    @dbFile = NSTemporaryDirectory() + Tk84::MyFunction.uniqid + '.db'
+    #    @db = SQLite3::Database.new(@dbFile)
+    @db = SQLite3::Database.new(':memory:')
     p @dbFile
+
 
     # 本データテーブル
     create_table
     records.each do |record|
-      record[:uniqid] = MyFunction.uniqid
+      record[:uniqid] = Tk84::MyFunction.uniqid
       insert_into record
     end
 
