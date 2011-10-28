@@ -20,8 +20,8 @@ class TimelineController < NSViewController
   end
 
   def tableView aTableView, objectValueForTableColumn:aTableColumn, row:rowIndex
-#    @model.label aTableColumn.identifier, rowIndex
-    @model.tableView aTableColumn.identifier, rowIndex
+    @model.label aTableColumn.identifier, rowIndex
+    # @model.tableView aTableColumn.identifier, rowIndex
   end
 
   def numberOfRowsInTableView aTableView
@@ -34,9 +34,12 @@ class TimelineController < NSViewController
   end
 end
 
+require 'benchmark'
+
 class TimelineModel
   def initialize records
     @db = SQLite3::Database.new(':memory:')
+    # @db.results_as_hash = true
 
     # dbfunc
     @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
@@ -105,33 +108,37 @@ class TimelineModel
   end
 
   def tableView id, index
-    if not @tableViewResult or @tableViewResult.closed?
-      @tableViewResult = @db.query @ext.sql:all,:table_view
-      @tableViewIndex = 0
-    end
 
-    puts "index:#{index},@tableViewIndex:#{@tableViewIndex}"
+    @tableViewCache[index][id] if @tableViewCache[index][id]
 
-    if index < @tableViewIndex
-      @tableViewResult.reset
-      @tableViewIndex = 0
-    end
 
-    if index > @tableViewIndex
-      (index - @tableViewIndex).times do |i|
-        @tableViewResult.next
-      end
-    end
+    # if not @tableViewResult or @tableViewResult.closed?
+    #   @tableViewResult = @db.query @ext.sql:all,:table_view
+    #   @tableViewIndex = 0
+    # end
 
-    @tableViewIndex = index + 1
+    # puts "index:#{index},@tableViewIndex:#{@tableViewIndex}"
 
-    @db.results_as_hash = true
-    result = @tableViewResult.first
-    @db.results_as_hash = false
+    # if index < @tableViewIndex
+    #   @tableViewResult.reset
+    #   @tableViewIndex = 0
+    # end
 
-    p result
+    # if index > @tableViewIndex
+    #   (index - @tableViewIndex).times do |i|
+    #     @tableViewResult.next
+    #   end
+    # end
 
-    result[id]
+    # @tableViewIndex = index + 1
+
+    # @db.results_as_hash = true
+    # result = @tableViewResult.first
+    # @db.results_as_hash = false
+
+    # p result
+
+    # result[id]
   end
 
   def numberOfRowsInTableView
@@ -147,34 +154,53 @@ class TimelineModel
   end
 
   def refresh_tmp_table order_param
-    master = @db.query(
-                 @ext.sql(:all,:select_all_from_master) +
-                 case order_param
-                 when 1 then @ext.sql:all,order_sequence_desc
-                 when 2 then @ext.sql:all,order_random
-                 else @ext.sql:all,:order_sequence_asc
-                 end)
 
-    uniqid = 0;
-    btime = 2;
-    etime = 3;
-    caption = 4;
 
-    rowIndex = 0
-    master.each do |row|
-      data = []
-      data << row[uniqid]
-      data << rowIndex
-      rowIndex += 1
-      data << time_format(row[btime])
-      data << time_format(row[etime])
-      data << row[caption].
-        # gsub(/(<[^>]*>|\s)/, ' ').
-        gsub(/\s+/, ' ').
-        gsub(/(^\s|\s$)/, '')
 
-      @db.execute @ext.sql(:all,:insert_into_label), data
-    end
+    @db.execute @ext.sql:all,:insert_label_from_master
+
+
+    # if not @tableViewCache
+    #   @tableViewCache = []
+    #   @db.results_as_hash = true
+
+    #   puts Benchmark.measure {
+    #   @db.execute @ext.sql:all,:table_view do |row|
+    #     @tableViewCache << row
+    #   end
+    #   }
+    #   @db.results_as_hash = false
+    # end
+
+
+    # master = @db.query(
+    #              @ext.sql(:all,:select_all_from_master) +
+    #              case order_param
+    #              when 1 then @ext.sql:all,order_sequence_desc
+    #              when 2 then @ext.sql:all,order_random
+    #              else @ext.sql:all,:order_sequence_asc
+    #              end)
+
+    # uniqid = 0;
+    # btime = 2;
+    # etime = 3;
+    # caption = 4;
+
+    # rowIndex = 0
+    # master.each do |row|
+    #   data = []
+    #   data << row[uniqid]
+    #   data << rowIndex
+    #   rowIndex += 1
+    #   data << time_format(row[btime])
+    #   data << time_format(row[etime])
+    #   data << row[caption].
+    #     # gsub(/(<[^>]*>|\s)/, ' ').
+    #     gsub(/\s+/, ' ').
+    #     gsub(/(^\s|\s$)/, '')
+
+    #   @db.execute @ext.sql(:all,:insert_into_label), data
+    # end
   end
 
   # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出

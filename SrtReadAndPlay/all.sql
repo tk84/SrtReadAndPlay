@@ -10,6 +10,32 @@ CREATE TABLE master (
 CREATE UNIQUE INDEX uniqid ON master (uniqid);
 CREATE UNIQUE INDEX time ON master (begin_time, end_time);
 
+--:create_label
+CREATE TEMP TABLE label (
+  uniqid TEXT,
+  rowIndex INTEGER PRIMARY KEY AUTOINCREMENT,
+  beginLabel TEXT,
+  endLabel TEXT,
+  textLabel TEXT
+);
+
+CREATE UNIQUE INDEX uniqid ON label (uniqid);
+CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
+
+--:insert_label_from_master
+INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
+SELECT
+  uniqid,
+  -- begin_time AS beginLabel,
+  -- end_time AS endLabel,
+  -- caption AS textLabel
+
+  ftime_to_srtime(begin_time) AS beginLabel,
+  ftime_to_srtime(end_time) AS endLabel,
+  oneline(caption) AS textLabel
+FROM master
+;
+
 --:table_view
 SELECT
   ftime_to_srtime(begin_time) AS beginLabel,
@@ -18,17 +44,6 @@ SELECT
 FROM master
 ;
 
---:create_label
-CREATE TEMP TABLE label (
-  uniqid TEXT,
-  rowIndex INTEGER,
-  beginLabel TEXT,
-  endLabel TEXT,
-  textLabel TEXT
-);
-
-CREATE UNIQUE INDEX uniqid ON label (uniqid);
-CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 
 --:select_first_value
 SELECT #{id} FROM label
