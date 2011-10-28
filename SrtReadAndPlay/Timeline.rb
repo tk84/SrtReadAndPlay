@@ -20,11 +20,13 @@ class TimelineController < NSViewController
   end
 
   def tableView aTableView, objectValueForTableColumn:aTableColumn, row:rowIndex
-    @model.label aTableColumn.identifier, rowIndex
+#    @model.label aTableColumn.identifier, rowIndex
+    @model.tableView aTableColumn.identifier, rowIndex
   end
 
   def numberOfRowsInTableView aTableView
-    @model.count
+#    @model.count
+    @model.numberOfRowsInTableView
   end
 
   def selectRow sender
@@ -94,11 +96,54 @@ class TimelineModel
   end
 
   def label id, index
+    p "label referenced #{Time.now}"
     @db.get_first_value @ext.sql(:all,:select_first_value,id:id), index:index
   end
 
   def count
     @db.get_first_value @ext.sql:all,:count_rows
+  end
+
+  def tableView id, index
+    if not @tableViewResult or @tableViewResult.closed?
+      @tableViewResult = @db.query @ext.sql:all,:table_view
+      @tableViewIndex = 0
+    end
+
+    puts "index:#{index},@tableViewIndex:#{@tableViewIndex}"
+
+    if index < @tableViewIndex
+      @tableViewResult.reset
+      @tableViewIndex = 0
+    end
+
+    if index > @tableViewIndex
+      (index - @tableViewIndex).times do |i|
+        @tableViewResult.next
+      end
+    end
+
+    @tableViewIndex = index + 1
+
+    @db.results_as_hash = true
+    result = @tableViewResult.first
+    @db.results_as_hash = false
+
+    p result
+
+    result[id]
+  end
+
+  def numberOfRowsInTableView
+    if not @numberOfRowsResult or @numberOfRowsResult.closed?
+      p 'numberOfRowsInTableView create'
+      @numberOfRowsResult = @db.query @ext.sql:all,:number_of_rows
+    else
+      p 'numberOfRowsInTableView still open'
+      @numberOfRowsResult.reset
+    end
+
+    @numberOfRowsResult.first.first
   end
 
   def refresh_tmp_table order_param

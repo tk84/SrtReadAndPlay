@@ -10,6 +10,14 @@ CREATE TABLE master (
 CREATE UNIQUE INDEX uniqid ON master (uniqid);
 CREATE UNIQUE INDEX time ON master (begin_time, end_time);
 
+--:table_view
+SELECT
+  ftime_to_srtime(begin_time) AS beginLabel,
+  ftime_to_srtime(end_time) AS endLabel,
+  oneline(caption) AS textLabel
+FROM master
+;
+
 --:create_label
 CREATE TEMP TABLE label (
   uniqid TEXT,
@@ -57,3 +65,6 @@ SELECT oneline(caption) FROM master LIMIT 10;
 
 --:count_rows
 SELECT count(uniqid) FROM label;
+
+--:number_of_rows
+SELECT count(*) FROM master;
