@@ -76,6 +76,7 @@ SELECT begin_time, end_time FROM master WHERE uniqid = ?;
 SELECT ftime_to_srtime(begin_time) FROM master LIMIT 10;
 
 --:test1
+
 SELECT oneline(caption) FROM master LIMIT 10;
 
 --:count_rows

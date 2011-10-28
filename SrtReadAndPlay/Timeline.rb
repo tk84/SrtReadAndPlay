@@ -38,8 +38,31 @@ require 'benchmark'
 
 class TimelineModel
   def initialize records
+    # @db = Amalgalite::MemoryDatabase.new
     @db = SQLite3::Database.new(':memory:')
     # @db.results_as_hash = true
+
+    # # dbfunc
+    # @db.function 'ftime_to_srtime' do |ftime|
+    #   h = ftime / 3600
+    #   ftime %= 3600
+    #   m = ftime / 60
+    #   ftime %= 60
+    #   s = ftime
+    #   ftime -= ftime.truncate
+
+    #   '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+    # end
+
+    # # dbfunc
+    # @db.function 'oneline' do |text|
+    #   newtext = text.
+    #     # gsub(/(<[^>]*>|\s)/, ' ').
+    #     gsub(/\s+/, ' ').
+    #     gsub(/(^\s|\s$)/, '')
+
+    #   newtext
+    # end
 
     # dbfunc
     @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
@@ -50,7 +73,7 @@ class TimelineModel
       s = ftime
       ftime -= ftime.truncate
 
-      func.result = '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+      func.result = ('%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]).dup
     end
 
     # dbfunc

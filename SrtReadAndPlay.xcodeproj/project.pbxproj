@@ -16,6 +16,8 @@
 		453784B0145A7FBA00205CA7 /* arrayfields.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AB145A7FBA00205CA7 /* arrayfields.rb */; };
 		453784B1145A7FBA00205CA7 /* faster_csv.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AC145A7FBA00205CA7 /* faster_csv.rb */; };
 		453784B2145A7FBA00205CA7 /* fastercsv.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AD145A7FBA00205CA7 /* fastercsv.rb */; };
+		453784B7145A84B500205CA7 /* sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 453784B5145A84B500205CA7 /* sqlite3 */; };
+		453784B8145A84B500205CA7 /* sqlite3.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784B6145A84B500205CA7 /* sqlite3.rb */; };
 		454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A61452178E00CBE066 /* CoreMedia.framework */; };
 		454D52AA1452179600CBE066 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A91452179600CBE066 /* AVFoundation.framework */; };
 		454D52AD1452D4DE00CBE066 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 454D52AC1452D4DE00CBE066 /* TODO */; };
@@ -42,6 +44,8 @@
 		453784AB145A7FBA00205CA7 /* arrayfields.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = arrayfields.rb; path = ../../lib/arrayfields.rb; sourceTree = "<group>"; };
 		453784AC145A7FBA00205CA7 /* faster_csv.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = faster_csv.rb; path = ../../lib/faster_csv.rb; sourceTree = "<group>"; };
 		453784AD145A7FBA00205CA7 /* fastercsv.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = fastercsv.rb; path = ../../lib/fastercsv.rb; sourceTree = "<group>"; };
+		453784B5145A84B500205CA7 /* sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sqlite3; path = ../../lib/sqlite3; sourceTree = "<group>"; };
+		453784B6145A84B500205CA7 /* sqlite3.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = sqlite3.rb; path = ../../lib/sqlite3.rb; sourceTree = "<group>"; };
 		454D52A61452178E00CBE066 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		454D52A91452179600CBE066 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		454D52AC1452D4DE00CBE066 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 		45076F55145336820002279F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				453784B4145A848200205CA7 /* sqlite3 */,
 				453784B3145A7FFF00205CA7 /* amalgalite */,
 				4537844C1459DCD500205CA7 /* Extsource.rb */,
 				450DCDFE145538E600539006 /* MyFunction.rb */,
@@ -97,6 +102,15 @@
 				453784AD145A7FBA00205CA7 /* fastercsv.rb */,
 			);
 			name = amalgalite;
+			sourceTree = "<group>";
+		};
+		453784B4145A848200205CA7 /* sqlite3 */ = {
+			isa = PBXGroup;
+			children = (
+				453784B5145A84B500205CA7 /* sqlite3 */,
+				453784B6145A84B500205CA7 /* sqlite3.rb */,
+			);
+			name = sqlite3;
 			sourceTree = "<group>";
 		};
 		454D52AB1452D4C400CBE066 /* other */ = {
@@ -273,6 +287,8 @@
 				453784B0145A7FBA00205CA7 /* arrayfields.rb in Resources */,
 				453784B1145A7FBA00205CA7 /* faster_csv.rb in Resources */,
 				453784B2145A7FBA00205CA7 /* fastercsv.rb in Resources */,
+				453784B7145A84B500205CA7 /* sqlite3 in Resources */,
+				453784B8145A84B500205CA7 /* sqlite3.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
