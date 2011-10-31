@@ -38,12 +38,42 @@ require 'benchmark'
 
 class TimelineModel
   def initialize records
-    # @db = Amalgalite::MemoryDatabase.new
-    @db = SQLite3::Database.new(':memory:')
+
+    File.unlink '/tmp/my.db' if File.file? '/tmp/my.db'
+
+    @db = SQLite3Connection.new
+    @db.initWithPath '/tmp/my.db', flags:KSQLite3OpenCreate | KSQLite3OpenReadWrite
+
+
+    # @db.createFunction({'name'=>'ftime_to_srtime', 'argc'=>1, 'resultType'=>SQLITE_TEXT},
+    #     usingBlock:Proc.new{|args|
+    #                      ftime,*kipple = *args
+    #                      h = ftime / 3600
+    #                      ftime %= 3600
+    #                      m = ftime / 60
+    #                      ftime %= 60
+    #                      s = ftime
+    #                      ftime -= ftime.truncate
+    #                      '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+    #                    })
+
+    @oneline = Proc.new{|args|
+                         text,*kipple=*args
+                         # text.
+                         # # gsub(/(<[^>]*>|\s)/, ' ').
+                         # gsub(/\s+/, ' ').
+                         # gsub(/(^\s|\s$)/, '')
+      'unko'
+                       }
+
+    @db.createFunction({'name'=>'oneline', 'argc'=>1, 'resultType'=>SQLITE_TEXT},
+        usingBlock:@oneline)
+
+#    @db = SQLite3::Database.new(':memory:')
     # @db.results_as_hash = true
 
     # # dbfunc
-    # @db.function 'ftime_to_srtime' do |ftime|
+    # @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
     #   h = ftime / 3600
     #   ftime %= 3600
     #   m = ftime / 60
@@ -51,41 +81,20 @@ class TimelineModel
     #   s = ftime
     #   ftime -= ftime.truncate
 
-    #   '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+    #   func.result = ('%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]).dup
     # end
 
     # # dbfunc
-    # @db.function 'oneline' do |text|
+    # @db.create_function 'oneline', 1 do |func, text|
     #   newtext = text.
     #     # gsub(/(<[^>]*>|\s)/, ' ').
     #     gsub(/\s+/, ' ').
     #     gsub(/(^\s|\s$)/, '')
 
-    #   newtext
+    #   func.result = newtext
     # end
 
-    # dbfunc
-    @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
-      h = ftime / 3600
-      ftime %= 3600
-      m = ftime / 60
-      ftime %= 60
-      s = ftime
-      ftime -= ftime.truncate
-
-      func.result = ('%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]).dup
-    end
-
-    # dbfunc
-    @db.create_function 'oneline', 1 do |func, text|
-      newtext = text.
-        # gsub(/(<[^>]*>|\s)/, ' ').
-        gsub(/\s+/, ' ').
-        gsub(/(^\s|\s$)/, '')
-
-      func.result = newtext
-    end
-
+    # 外部データ読み込み
     @ext = Tk84::Extsource.instance
     @ext.parser:sql, Tk84::Extsource::Sql
     @ext.source:sql, :all, File.dirname(__FILE__)+'/all.sql'
@@ -96,12 +105,25 @@ class TimelineModel
 
     records.each do |record|
       record[:uniqid] = Tk84::MyFunction.uniqid
-      @db.execute @ext.sql(:all,:insert_into_master), record
+
+      _record = {}
+      record.each_pair do |key,value|
+        _record.store key.to_s, value
+      end
+
+      @db.execute(@ext.sql(:all,:insert_into_master),
+          withDictionaryBindings:_record)
+
+#      @db.execute @ext.sql(:all,:insert_into_master), record
     end
 
+    @db.enumerateWithQuery @ext.sql(:all,:table_view), usingBlock:Proc.new{|row ,abort|
+      p row
+    }
+
     # 表示用データテーブル
-    @db.execute @ext.sql:all,:create_label
-    refresh_tmp_table 0
+    # @db.execute @ext.sql:all,:create_label
+    # refresh_tmp_table 0
 
   end
 
@@ -177,8 +199,6 @@ class TimelineModel
   end
 
   def refresh_tmp_table order_param
-
-
 
     @db.execute @ext.sql:all,:insert_label_from_master
 
