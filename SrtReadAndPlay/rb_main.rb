@@ -28,6 +28,7 @@ require 'nkf'
 require 'sqlite3'
 require 'Extsource'
 #require 'amalgalite'
+require 'SQLite3Connection'
 
 # Starting the Cocoa main loop.
 NSApplicationMain(0, nil)

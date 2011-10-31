@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		45076F581453369A0002279F /* Timer.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45076F571453369A0002279F /* Timer.rb */; };
 		450DCDFF145538E600539006 /* MyFunction.rb in Resources */ = {isa = PBXBuildFile; fileRef = 450DCDFE145538E600539006 /* MyFunction.rb */; };
+		4528AD13145EB88500BBD753 /* SQLite3Connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4528AD12145EB88500BBD753 /* SQLite3Connection.rb */; };
+		4528AD16145EB8C300BBD753 /* CoreSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4528AD15145EB8C300BBD753 /* CoreSQLite3.framework */; };
 		4537844D1459DCD500205CA7 /* Extsource.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4537844C1459DCD500205CA7 /* Extsource.rb */; };
 		453784501459E3E900205CA7 /* all.sql in Resources */ = {isa = PBXBuildFile; fileRef = 4537844F1459E3E900205CA7 /* all.sql */; };
 		453784AE145A7FBA00205CA7 /* amalgalite in Resources */ = {isa = PBXBuildFile; fileRef = 453784A9145A7FBA00205CA7 /* amalgalite */; };
@@ -16,13 +18,13 @@
 		453784B0145A7FBA00205CA7 /* arrayfields.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AB145A7FBA00205CA7 /* arrayfields.rb */; };
 		453784B1145A7FBA00205CA7 /* faster_csv.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AC145A7FBA00205CA7 /* faster_csv.rb */; };
 		453784B2145A7FBA00205CA7 /* fastercsv.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784AD145A7FBA00205CA7 /* fastercsv.rb */; };
-		453784B7145A84B500205CA7 /* sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 453784B5145A84B500205CA7 /* sqlite3 */; };
-		453784B8145A84B500205CA7 /* sqlite3.rb in Resources */ = {isa = PBXBuildFile; fileRef = 453784B6145A84B500205CA7 /* sqlite3.rb */; };
 		454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A61452178E00CBE066 /* CoreMedia.framework */; };
 		454D52AA1452179600CBE066 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454D52A91452179600CBE066 /* AVFoundation.framework */; };
 		454D52AD1452D4DE00CBE066 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 454D52AC1452D4DE00CBE066 /* TODO */; };
 		457BA5261451D63B00573FD9 /* Media.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5251451D63B00573FD9 /* Media.xib */; };
 		457BA5281451D71700573FD9 /* Media.rb in Resources */ = {isa = PBXBuildFile; fileRef = 457BA5271451D71700573FD9 /* Media.rb */; };
+		45EB1F5A145B0F9C007A4864 /* sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 45EB1F58145B0F9C007A4864 /* sqlite3 */; };
+		45EB1F5B145B0F9C007A4864 /* sqlite3.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45EB1F59145B0F9C007A4864 /* sqlite3.rb */; };
 		45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7C14519CD4004A282F /* Cocoa.framework */; };
 		45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F6CF7E14519CD4004A282F /* MacRuby.framework */; };
 		45F6CF8614519CD4004A282F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F6CF8414519CD4004A282F /* InfoPlist.strings */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		45076F571453369A0002279F /* Timer.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Timer.rb; path = ../../../../lib/Timer.rb; sourceTree = "<group>"; };
 		450DCDFE145538E600539006 /* MyFunction.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = MyFunction.rb; path = ../../../../lib/MyFunction.rb; sourceTree = "<group>"; };
+		4528AD12145EB88500BBD753 /* SQLite3Connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = SQLite3Connection.rb; path = ../../../../lib/SQLite3Connection.rb; sourceTree = "<group>"; };
+		4528AD15145EB8C300BBD753 /* CoreSQLite3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSQLite3.framework; path = ../lib/CoreSQLite3.framework; sourceTree = "<group>"; };
 		4537844C1459DCD500205CA7 /* Extsource.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Extsource.rb; path = ../../../../lib/Extsource.rb; sourceTree = "<group>"; };
 		4537844F1459E3E900205CA7 /* all.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = all.sql; sourceTree = "<group>"; };
 		453784A9145A7FBA00205CA7 /* amalgalite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = amalgalite; path = ../../lib/amalgalite; sourceTree = "<group>"; };
@@ -44,13 +48,13 @@
 		453784AB145A7FBA00205CA7 /* arrayfields.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = arrayfields.rb; path = ../../lib/arrayfields.rb; sourceTree = "<group>"; };
 		453784AC145A7FBA00205CA7 /* faster_csv.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = faster_csv.rb; path = ../../lib/faster_csv.rb; sourceTree = "<group>"; };
 		453784AD145A7FBA00205CA7 /* fastercsv.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = fastercsv.rb; path = ../../lib/fastercsv.rb; sourceTree = "<group>"; };
-		453784B5145A84B500205CA7 /* sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sqlite3; path = ../../lib/sqlite3; sourceTree = "<group>"; };
-		453784B6145A84B500205CA7 /* sqlite3.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = sqlite3.rb; path = ../../lib/sqlite3.rb; sourceTree = "<group>"; };
 		454D52A61452178E00CBE066 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		454D52A91452179600CBE066 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		454D52AC1452D4DE00CBE066 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		457BA5251451D63B00573FD9 /* Media.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Media.xib; sourceTree = "<group>"; };
 		457BA5271451D71700573FD9 /* Media.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Media.rb; sourceTree = "<group>"; };
+		45EB1F58145B0F9C007A4864 /* sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sqlite3; path = "../../../../.rvm/gems/macruby-0.10@first/gems/sqlite3-1.3.4/lib/sqlite3"; sourceTree = "<group>"; };
+		45EB1F59145B0F9C007A4864 /* sqlite3.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = sqlite3.rb; path = "../../../../.rvm/gems/macruby-0.10@first/gems/sqlite3-1.3.4/lib/sqlite3.rb"; sourceTree = "<group>"; };
 		45F6CF7814519CD4004A282F /* SrtReadAndPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SrtReadAndPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F6CF7C14519CD4004A282F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45F6CF7E14519CD4004A282F /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
@@ -74,6 +78,7 @@
 				454D52A71452178E00CBE066 /* CoreMedia.framework in Frameworks */,
 				45F6CF7D14519CD4004A282F /* Cocoa.framework in Frameworks */,
 				45F6CF7F14519CD4004A282F /* MacRuby.framework in Frameworks */,
+				4528AD16145EB8C300BBD753 /* CoreSQLite3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,7 @@
 		45076F55145336820002279F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				4528AD12145EB88500BBD753 /* SQLite3Connection.rb */,
 				453784B4145A848200205CA7 /* sqlite3 */,
 				453784B3145A7FFF00205CA7 /* amalgalite */,
 				4537844C1459DCD500205CA7 /* Extsource.rb */,
@@ -107,8 +113,8 @@
 		453784B4145A848200205CA7 /* sqlite3 */ = {
 			isa = PBXGroup;
 			children = (
-				453784B5145A84B500205CA7 /* sqlite3 */,
-				453784B6145A84B500205CA7 /* sqlite3.rb */,
+				45EB1F58145B0F9C007A4864 /* sqlite3 */,
+				45EB1F59145B0F9C007A4864 /* sqlite3.rb */,
 			);
 			name = sqlite3;
 			sourceTree = "<group>";
@@ -151,6 +157,7 @@
 		45F6CF7B14519CD4004A282F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4528AD15145EB8C300BBD753 /* CoreSQLite3.framework */,
 				454D52A91452179600CBE066 /* AVFoundation.framework */,
 				454D52A61452178E00CBE066 /* CoreMedia.framework */,
 				45F6CF7C14519CD4004A282F /* Cocoa.framework */,
@@ -287,8 +294,9 @@
 				453784B0145A7FBA00205CA7 /* arrayfields.rb in Resources */,
 				453784B1145A7FBA00205CA7 /* faster_csv.rb in Resources */,
 				453784B2145A7FBA00205CA7 /* fastercsv.rb in Resources */,
-				453784B7145A84B500205CA7 /* sqlite3 in Resources */,
-				453784B8145A84B500205CA7 /* sqlite3.rb in Resources */,
+				45EB1F5A145B0F9C007A4864 /* sqlite3 in Resources */,
+				45EB1F5B145B0F9C007A4864 /* sqlite3.rb in Resources */,
+				4528AD13145EB88500BBD753 /* SQLite3Connection.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,12 +386,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/../lib\"",
 				);
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SrtReadAndPlay/SrtReadAndPlay-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SrtReadAndPlay/SrtReadAndPlay-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -394,12 +406,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/../lib\"",
 				);
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SrtReadAndPlay/SrtReadAndPlay-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SrtReadAndPlay/SrtReadAndPlay-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -26,10 +26,6 @@ CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
 SELECT
   uniqid,
-  -- begin_time AS beginLabel,
-  -- end_time AS endLabel,
-  -- caption AS textLabel
-
   ftime_to_srtime(begin_time) AS beginLabel,
   ftime_to_srtime(end_time) AS endLabel,
   oneline(caption) AS textLabel
