@@ -53,15 +53,11 @@ WHERE sequence = :index
 SELECT oneline(caption) AS textLabel FROM master
 WHERE sequence = :index
 
---:select_label_column_with_name
-SELECT
-  beginLabel,endLabel,textLabel
-FROM label
-WHERE rowIndex = :index
+--:select_label_row
+SELECT * FROM label WHERE rowIndex = :index;
 
---:select_first_value
-SELECT #{id} FROM label
-WHERE rowIndex = :index
+
+
 
 --:select_all_from_master
 SELECT * FROM master

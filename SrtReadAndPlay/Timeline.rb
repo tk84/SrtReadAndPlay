@@ -106,14 +106,16 @@ class TimelineModel
   end
 
   def label id, index
-#    p "label referenced #{Time.now}"
-
     index += 1
-#    @db.get_first_value @ext.sql(:all,('column_' + id).to_sym), 'index' => index
 
-#    @db.get_first_value @ext.sql(:all,:select_first_value,id:id), 'index'=>index
+    if @label_index != index
+      @label_index = index
+      @label_stmt =
+        @db.query @ext.sql(:all,:select_label_row), 'index'=>@label_index
+      @label_stmt.step
+    end
 
-    @db.column_with_name @ext.sql(:all,:select_label_column_with_name), id, 'index'=>index
+    @label_stmt.objectWithColumnName(id)
   end
 
   def count
