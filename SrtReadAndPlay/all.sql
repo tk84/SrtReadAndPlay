@@ -11,7 +11,7 @@ CREATE UNIQUE INDEX uniqid ON master (uniqid);
 CREATE UNIQUE INDEX time ON master (begin_time, end_time);
 
 --:create_label
-CREATE TABLE label (
+CREATE TEMPORARY TABLE label (
   uniqid TEXT,
   rowIndex INTEGER PRIMARY KEY AUTOINCREMENT,
   beginLabel TEXT,
@@ -19,18 +19,18 @@ CREATE TABLE label (
   textLabel TEXT
 );
 
-CREATE UNIQUE INDEX uniqid_label ON label (uniqid);
-CREATE UNIQUE INDEX rowIndex_label ON label (rowIndex);
+CREATE UNIQUE INDEX uniqid ON label (uniqid);
+CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 
 --:insert_label_from_master
 INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
 SELECT
   uniqid,
-  begin_time AS beginLabel,
-  end_time AS endLabel,
+  -- begin_time AS beginLabel,
+  -- end_time AS endLabel,
   -- caption AS textLabel
-  -- ftime_to_srtime(begin_time) AS beginLabel,
-  -- ftime_to_srtime(end_time) AS endLabel,
+  ftime_to_srtime(begin_time) AS beginLabel,
+  ftime_to_srtime(end_time) AS endLabel,
   oneline(caption) AS textLabel
 FROM master
 ;
@@ -43,6 +43,21 @@ SELECT
 FROM master
 ;
 
+--:column_beginLabel
+SELECT ftime_to_srtime(begin_time) AS beginLabel FROM master
+WHERE sequence = :index
+--:column_endLabel
+SELECT ftime_to_srtime(end_time) AS endLabel FROM master
+WHERE sequence = :index
+--:column_textLabel
+SELECT oneline(caption) AS textLabel FROM master
+WHERE sequence = :index
+
+--:select_label_column_with_name
+SELECT
+  beginLabel,endLabel,textLabel
+FROM label
+WHERE rowIndex = :index
 
 --:select_first_value
 SELECT #{id} FROM label

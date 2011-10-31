@@ -25,8 +25,8 @@ class TimelineController < NSViewController
   end
 
   def numberOfRowsInTableView aTableView
-#    @model.count
-    @model.numberOfRowsInTableView
+    @model.count
+#    @model.numberOfRowsInTableView
   end
 
   def selectRow sender
@@ -39,60 +39,26 @@ require 'benchmark'
 class TimelineModel
   def initialize records
 
-    File.unlink '/tmp/my.db' if File.file? '/tmp/my.db'
-
     @db = SQLite3Connection.new
-    @db.initWithPath '/tmp/my.db', flags:KSQLite3OpenCreate | KSQLite3OpenReadWrite
+    @db.initWithPath ':memory:', flags:KSQLite3OpenCreate | KSQLite3OpenReadWrite
 
+    @db.create_function 'oneline' do |text|
+      text.
+        # gsub(/(<[^>]*>|\s)/, ' ').
+        gsub(/\s+/, ' ').
+        gsub(/(^\s|\s$)/, '')
+    end
 
-    # @db.createFunction({'name'=>'ftime_to_srtime', 'argc'=>1, 'resultType'=>SQLITE_TEXT},
-    #     usingBlock:Proc.new{|args|
-    #                      ftime,*kipple = *args
-    #                      h = ftime / 3600
-    #                      ftime %= 3600
-    #                      m = ftime / 60
-    #                      ftime %= 60
-    #                      s = ftime
-    #                      ftime -= ftime.truncate
-    #                      '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
-    #                    })
+    @db.create_function 'ftime_to_srtime' do |ftime|
+      h = ftime / 3600
+      ftime %= 3600
+      m = ftime / 60
+      ftime %= 60
+      s = ftime
+      ftime -= ftime.truncate
 
-    @oneline = Proc.new{|args|
-                         text,*kipple=*args
-                         # text.
-                         # # gsub(/(<[^>]*>|\s)/, ' ').
-                         # gsub(/\s+/, ' ').
-                         # gsub(/(^\s|\s$)/, '')
-      'unko'
-                       }
-
-    @db.createFunction({'name'=>'oneline', 'argc'=>1, 'resultType'=>SQLITE_TEXT},
-        usingBlock:@oneline)
-
-#    @db = SQLite3::Database.new(':memory:')
-    # @db.results_as_hash = true
-
-    # # dbfunc
-    # @db.create_function 'ftime_to_srtime', 1 do |func, ftime|
-    #   h = ftime / 3600
-    #   ftime %= 3600
-    #   m = ftime / 60
-    #   ftime %= 60
-    #   s = ftime
-    #   ftime -= ftime.truncate
-
-    #   func.result = ('%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]).dup
-    # end
-
-    # # dbfunc
-    # @db.create_function 'oneline', 1 do |func, text|
-    #   newtext = text.
-    #     # gsub(/(<[^>]*>|\s)/, ' ').
-    #     gsub(/\s+/, ' ').
-    #     gsub(/(^\s|\s$)/, '')
-
-    #   func.result = newtext
-    # end
+      '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
+    end
 
     # 外部データ読み込み
     @ext = Tk84::Extsource.instance
@@ -117,13 +83,9 @@ class TimelineModel
 #      @db.execute @ext.sql(:all,:insert_into_master), record
     end
 
-    @db.enumerateWithQuery @ext.sql(:all,:table_view), usingBlock:Proc.new{|row ,abort|
-      p row
-    }
-
     # 表示用データテーブル
-    # @db.execute @ext.sql:all,:create_label
-    # refresh_tmp_table 0
+    @db.execute @ext.sql:all,:create_label
+    refresh_tmp_table 0
 
   end
 
@@ -144,8 +106,14 @@ class TimelineModel
   end
 
   def label id, index
-    p "label referenced #{Time.now}"
-    @db.get_first_value @ext.sql(:all,:select_first_value,id:id), index:index
+#    p "label referenced #{Time.now}"
+
+    index += 1
+#    @db.get_first_value @ext.sql(:all,('column_' + id).to_sym), 'index' => index
+
+#    @db.get_first_value @ext.sql(:all,:select_first_value,id:id), 'index'=>index
+
+    @db.column_with_name @ext.sql(:all,:select_label_column_with_name), id, 'index'=>index
   end
 
   def count
