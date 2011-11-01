@@ -20,21 +20,17 @@ class TimelineController < NSViewController
   end
 
   def tableView aTableView, objectValueForTableColumn:aTableColumn, row:rowIndex
-    @model.label aTableColumn.identifier, rowIndex
-    # @model.tableView aTableColumn.identifier, rowIndex
+    @model.field aTableColumn.identifier, rowIndex
   end
 
   def numberOfRowsInTableView aTableView
     @model.count
-#    @model.numberOfRowsInTableView
   end
 
   def selectRow sender
     selectCallback.call @model.region sender if selectCallback
   end
 end
-
-require 'benchmark'
 
 class TimelineModel
   def initialize records
@@ -61,30 +57,27 @@ class TimelineModel
     end
 
     # 外部データ読み込み
-    @ext = Tk84::Extsource.instance
-    @ext.parser:sql, Tk84::Extsource::Sql
-    @ext.source:sql, :all, File.dirname(__FILE__)+'/all.sql'
+    @ext = Tk84::Extsource.new
+    @ext.parser:sql, Tk84::Parser::Sql
+    @ext.source:sql, :all, "#{File.dirname(__FILE__)}/all.sql"
+    @ext.source:sql, :create, "#{File.dirname(__FILE__)}/create.sql"
 
 
     # 本データテーブル
-    @db.execute @ext.sql:all,:create_master
+    @db.execute @ext.sql:create,:master
 
     records.each do |record|
       record[:uniqid] = Tk84::MyFunction.uniqid
 
-      _record = {}
-      record.each_pair do |key,value|
-        _record.store key.to_s, value
-      end
+      # ハッシュキーをシンボルから文字列に変換
+      record.each_pair {|key,value| record[key.to_s] = record.delete key if key.is_a? Symbol }
 
       @db.execute(@ext.sql(:all,:insert_into_master),
-          withDictionaryBindings:_record)
-
-#      @db.execute @ext.sql(:all,:insert_into_master), record
+          withDictionaryBindings:record)
     end
 
     # 表示用データテーブル
-    @db.execute @ext.sql:all,:create_label
+    @db.execute @ext.sql:create,:label
     refresh_tmp_table 0
 
   end
@@ -94,18 +87,7 @@ class TimelineModel
     @db.close if @db
   end
 
-  def time_format ftime
-    h = ftime / 3600
-    ftime %= 3600
-    m = ftime / 60
-    ftime %= 60
-    s = ftime
-    ftime -= ftime.truncate
-
-    '%02d:%02d:%02d,%03d' % [h,m,s,(ftime*1000)]
-  end
-
-  def label id, index
+  def field id, index
     index += 1
 
     if @label_index != index
@@ -119,101 +101,11 @@ class TimelineModel
   end
 
   def count
-    @db.get_first_value @ext.sql:all,:count_rows
-  end
-
-  def tableView id, index
-
-    @tableViewCache[index][id] if @tableViewCache[index][id]
-
-
-    # if not @tableViewResult or @tableViewResult.closed?
-    #   @tableViewResult = @db.query @ext.sql:all,:table_view
-    #   @tableViewIndex = 0
-    # end
-
-    # puts "index:#{index},@tableViewIndex:#{@tableViewIndex}"
-
-    # if index < @tableViewIndex
-    #   @tableViewResult.reset
-    #   @tableViewIndex = 0
-    # end
-
-    # if index > @tableViewIndex
-    #   (index - @tableViewIndex).times do |i|
-    #     @tableViewResult.next
-    #   end
-    # end
-
-    # @tableViewIndex = index + 1
-
-    # @db.results_as_hash = true
-    # result = @tableViewResult.first
-    # @db.results_as_hash = false
-
-    # p result
-
-    # result[id]
-  end
-
-  def numberOfRowsInTableView
-    if not @numberOfRowsResult or @numberOfRowsResult.closed?
-      p 'numberOfRowsInTableView create'
-      @numberOfRowsResult = @db.query @ext.sql:all,:number_of_rows
-    else
-      p 'numberOfRowsInTableView still open'
-      @numberOfRowsResult.reset
-    end
-
-    @numberOfRowsResult.first.first
+    @db.get_first_value @ext.sql:all,:select_label_count
   end
 
   def refresh_tmp_table order_param
-
     @db.execute @ext.sql:all,:insert_label_from_master
-
-
-    # if not @tableViewCache
-    #   @tableViewCache = []
-    #   @db.results_as_hash = true
-
-    #   puts Benchmark.measure {
-    #   @db.execute @ext.sql:all,:table_view do |row|
-    #     @tableViewCache << row
-    #   end
-    #   }
-    #   @db.results_as_hash = false
-    # end
-
-
-    # master = @db.query(
-    #              @ext.sql(:all,:select_all_from_master) +
-    #              case order_param
-    #              when 1 then @ext.sql:all,order_sequence_desc
-    #              when 2 then @ext.sql:all,order_random
-    #              else @ext.sql:all,:order_sequence_asc
-    #              end)
-
-    # uniqid = 0;
-    # btime = 2;
-    # etime = 3;
-    # caption = 4;
-
-    # rowIndex = 0
-    # master.each do |row|
-    #   data = []
-    #   data << row[uniqid]
-    #   data << rowIndex
-    #   rowIndex += 1
-    #   data << time_format(row[btime])
-    #   data << time_format(row[etime])
-    #   data << row[caption].
-    #     # gsub(/(<[^>]*>|\s)/, ' ').
-    #     gsub(/\s+/, ' ').
-    #     gsub(/(^\s|\s$)/, '')
-
-    #   @db.execute @ext.sql(:all,:insert_into_label), data
-    # end
   end
 
   # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出
@@ -235,46 +127,11 @@ class TimelineModel
 
   def self.makeModel url
     model = false
-
-    if FileTest.file? url.path and FileTest.readable? url.path
-      File.open url.path, 'r' do |file|
-        records = []
-        section = ''
-
-        file.each_line do |line|
-          line = NKF.nkf('--utf8', line)
-
-          # ファイル終端の処理
-          if file.eof?
-            section << line
-            line = "\n"
-          end
-
-          if line =~ /^(\r\n|\n)/ then
-            if section =~ /(?:^|\r?\n)(\d+)\r?\n(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\r?\n(.*)/m then
-              records << {
-                seq:Regexp.last_match(1).to_i,
-                btime:((Regexp.last_match(2).to_f * 60 * 60) +
-                  (Regexp.last_match(3).to_f * 60) +
-                  (Regexp.last_match(4).to_f * 1) +
-                  (Regexp.last_match(5).to_f / 1000)),
-                etime:((Regexp.last_match(6).to_f * 60 * 60) +
-                  (Regexp.last_match(7).to_f * 60) +
-                  (Regexp.last_match(8).to_f * 1) +
-                  (Regexp.last_match(9).to_f / 1000)),
-                caption:Regexp.last_match(10).chomp
-              }
-            end
-            section = ''
-          else
-            section << line
-          end
-        end
-
-        model = self.new records if records.count
-      end
-    end
-
+    ext = Tk84::Extsource.new
+    ext.parser:srt, Tk84::Parser::Srt
+    ext.source:srt,:srt,url
+    records = ext.srt:srt
+    model = self.new records if records.count
     model
   end
 end

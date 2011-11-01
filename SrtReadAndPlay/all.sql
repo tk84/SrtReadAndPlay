@@ -1,26 +1,3 @@
---:create_master
-CREATE TABLE master (
-  uniqid TEXT,
-  sequence INTEGER,
-  begin_time REAL,
-  end_time REAL,
-  caption TEXT
-);
-
-CREATE UNIQUE INDEX uniqid ON master (uniqid);
-CREATE UNIQUE INDEX time ON master (begin_time, end_time);
-
---:create_label
-CREATE TEMPORARY TABLE label (
-  uniqid TEXT,
-  rowIndex INTEGER PRIMARY KEY AUTOINCREMENT,
-  beginLabel TEXT,
-  endLabel TEXT,
-  textLabel TEXT
-);
-
-CREATE UNIQUE INDEX uniqid ON label (uniqid);
-CREATE UNIQUE INDEX rowIndex ON label (rowIndex);
 
 --:insert_label_from_master
 INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
@@ -82,15 +59,6 @@ SELECT uniqid FROM label WHERE rowIndex = ?;
 --:get_times_from_master_by_uniqid
 SELECT begin_time, end_time FROM master WHERE uniqid = ?;
 
---:test
-SELECT ftime_to_srtime(begin_time) FROM master LIMIT 10;
-
---:test1
-
-SELECT oneline(caption) FROM master LIMIT 10;
-
---:count_rows
+--:select_label_count
 SELECT count(uniqid) FROM label;
 
---:number_of_rows
-SELECT count(*) FROM master;
