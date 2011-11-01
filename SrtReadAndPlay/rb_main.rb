@@ -20,13 +20,5 @@ Dir.glob(File.join(dir_path, '*.{rb,rbo}')).map { |x| File.basename(x, File.extn
    end
 end
 
-#require 'AppDelegate'
-#require 'Timeline'
-#require 'Media'
-#require 'MyFunction'
-require 'nkf'
-#require 'Extsource'
-#require 'SQLite3Connection'
-
 # Starting the Cocoa main loop.
 NSApplicationMain(0, nil)

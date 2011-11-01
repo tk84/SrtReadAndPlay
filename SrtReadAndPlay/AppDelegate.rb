@@ -18,6 +18,8 @@ class AppDelegate
   def applicationDidFinishLaunching(a_notification)
     # Insert code here to initialize your application
 
+    #    ext = Tk84::Extsource.new
+    #    ext.sou_crc__e:sql, :insert
   end
 
   def windowWillClose aNotification

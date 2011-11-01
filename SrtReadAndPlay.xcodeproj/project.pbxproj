@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45076F581453369A0002279F /* Timer.rb in Resources */ = {isa = PBXBuildFile; fileRef = 45076F571453369A0002279F /* Timer.rb */; };
 		450DCDFF145538E600539006 /* MyFunction.rb in Resources */ = {isa = PBXBuildFile; fileRef = 450DCDFE145538E600539006 /* MyFunction.rb */; };
 		4528AD13145EB88500BBD753 /* SQLite3Connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4528AD12145EB88500BBD753 /* SQLite3Connection.rb */; };
 		4528AD16145EB8C300BBD753 /* CoreSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4528AD15145EB8C300BBD753 /* CoreSQLite3.framework */; };
@@ -32,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45076F571453369A0002279F /* Timer.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = Timer.rb; path = ../../../../lib/Timer.rb; sourceTree = "<group>"; };
 		450DCDFE145538E600539006 /* MyFunction.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = MyFunction.rb; path = ../../../../lib/MyFunction.rb; sourceTree = "<group>"; };
 		4528AD12145EB88500BBD753 /* SQLite3Connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = SQLite3Connection.rb; path = ../../../../lib/SQLite3Connection.rb; sourceTree = "<group>"; };
 		4528AD15145EB8C300BBD753 /* CoreSQLite3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSQLite3.framework; path = ../lib/CoreSQLite3.framework; sourceTree = "<group>"; };
@@ -81,17 +79,26 @@
 				4528AD12145EB88500BBD753 /* SQLite3Connection.rb */,
 				4537844C1459DCD500205CA7 /* Extsource.rb */,
 				450DCDFE145538E600539006 /* MyFunction.rb */,
-				45076F571453369A0002279F /* Timer.rb */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
 		};
-		454D52AB1452D4C400CBE066 /* other */ = {
+		453640E6145FD7840065DD57 /* Sql */ = {
+			isa = PBXGroup;
+			children = (
+				4537844F1459E3E900205CA7 /* select.sql */,
+				45FFA5FD145F348A00B4DBC1 /* create.sql */,
+				45CBFDBA145FCB2000E878F9 /* insert.sql */,
+			);
+			name = Sql;
+			sourceTree = "<group>";
+		};
+		454D52AB1452D4C400CBE066 /* Other */ = {
 			isa = PBXGroup;
 			children = (
 				454D52AC1452D4DE00CBE066 /* TODO */,
 			);
-			name = other;
+			name = Other;
 			sourceTree = "<group>";
 		};
 		457BA5171451D5D400573FD9 /* NIBs */ = {
@@ -136,15 +143,12 @@
 		45F6CF8114519CD4004A282F /* SrtReadAndPlay */ = {
 			isa = PBXGroup;
 			children = (
+				45F6CF8A14519CD4004A282F /* Classes */,
 				45076F55145336820002279F /* Lib */,
 				457BA5171451D5D400573FD9 /* NIBs */,
-				45F6CF9114519CD4004A282F /* AppDelegate.rb */,
-				45F6CFA114519E51004A282F /* Timeline.rb */,
-				457BA5271451D71700573FD9 /* Media.rb */,
-				45F6CF8A14519CD4004A282F /* Resources */,
-				45F6CF8E14519CD4004A282F /* Other Sources */,
+				453640E6145FD7840065DD57 /* Sql */,
 				45F6CF8214519CD4004A282F /* Supporting Files */,
-				454D52AB1452D4C400CBE066 /* other */,
+				454D52AB1452D4C400CBE066 /* Other */,
 			);
 			path = SrtReadAndPlay;
 			sourceTree = "<group>";
@@ -152,6 +156,7 @@
 		45F6CF8214519CD4004A282F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45F6CF8F14519CD4004A282F /* rb_main.rb */,
 				45F6CF8314519CD4004A282F /* SrtReadAndPlay-Info.plist */,
 				45F6CF8414519CD4004A282F /* InfoPlist.strings */,
 				45F6CF8714519CD4004A282F /* main.m */,
@@ -160,22 +165,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		45F6CF8A14519CD4004A282F /* Resources */ = {
+		45F6CF8A14519CD4004A282F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				45F6CF9114519CD4004A282F /* AppDelegate.rb */,
+				45F6CFA114519E51004A282F /* Timeline.rb */,
+				457BA5271451D71700573FD9 /* Media.rb */,
 			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		45F6CF8E14519CD4004A282F /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				45F6CF8F14519CD4004A282F /* rb_main.rb */,
-				4537844F1459E3E900205CA7 /* select.sql */,
-				45FFA5FD145F348A00B4DBC1 /* create.sql */,
-				45CBFDBA145FCB2000E878F9 /* insert.sql */,
-			);
-			name = "Other Sources";
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +251,6 @@
 				457BA5261451D63B00573FD9 /* Media.xib in Resources */,
 				457BA5281451D71700573FD9 /* Media.rb in Resources */,
 				454D52AD1452D4DE00CBE066 /* TODO in Resources */,
-				45076F581453369A0002279F /* Timer.rb in Resources */,
 				450DCDFF145538E600539006 /* MyFunction.rb in Resources */,
 				4537844D1459DCD500205CA7 /* Extsource.rb in Resources */,
 				453784501459E3E900205CA7 /* select.sql in Resources */,

@@ -64,22 +64,23 @@ class TimelineModel
     @ext.source:sql, :insert, "#{File.dirname(__FILE__)}/insert.sql"
 
     # 本データテーブル
-    @db.execute @ext.sql:create,:master
+    @db.execute @ext.sql_create:master
 
     records.each do |record|
       record[:uniqid] = Tk84::MyFunction.uniqid
 
       # ハッシュキーをシンボルから文字列に変換
-      record.each_pair {|key,value| record[key.to_s] = record.delete key if key.is_a? Symbol }
+      record.each_pair do |key,value|
+        record[key.to_s] = record.delete key if key.is_a? Symbol
+      end
 
-      @db.execute(@ext.sql(:insert,:master),
-          withDictionaryBindings:record)
+      @db.execute @ext.sql_insert(:master),
+          withDictionaryBindings:record
     end
 
     # 表示用データテーブル
-    @db.execute @ext.sql:create,:label
+    @db.execute @ext.sql_create:label
     refresh_tmp_table 0
-
   end
 
   def finalize
@@ -93,7 +94,7 @@ class TimelineModel
     if @label_index != index
       @label_index = index
       @label_stmt =
-        @db.query @ext.sql(:select,:row_from_label), 'index'=>@label_index
+        @db.query @ext.sql_select(:row_from_label), 'index'=>@label_index
       @label_stmt.step
     end
 
@@ -101,11 +102,11 @@ class TimelineModel
   end
 
   def count
-    @db.get_first_value @ext.sql:select,:count_from_label
+    @db.get_first_value @ext.sql_select:count_from_label
   end
 
   def refresh_tmp_table order_param
-    @db.execute @ext.sql:insert,:label_from_master
+    @db.execute @ext.sql_insert:label_from_master
   end
 
   # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出
@@ -115,8 +116,8 @@ class TimelineModel
     tableView.selectedRowIndexes.
       enumerateIndexesUsingBlock Proc.new {|idx, stop|
 
-      btime, etime = @db.get_first_row @ext.sql(:select,:times_from_master_by_uniqid),
-      @db.get_first_value(@ext.sql(:select,:uniqid_from_label), idx)
+      btime, etime = @db.row(@ext.sql_select(:times_from_master_by_uniqid),
+                         @db.column(@ext.sql_select(:uniqid_from_label), idx + 1))
 
       min_btime = btime if min_btime > btime
       max_etime = etime if max_etime < etime
