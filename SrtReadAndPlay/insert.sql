@@ -1,7 +1,11 @@
+--
+--  insert.sql
+--
+
+
 --:master
 INSERT INTO master
 VALUES (:uniqid, :seq, :btime, :etime, :caption);
-
 
 --:label_from_master
 INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
