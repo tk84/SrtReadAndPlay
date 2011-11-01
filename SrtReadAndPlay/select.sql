@@ -1,17 +1,4 @@
 
---:insert_label_from_master
-INSERT INTO label (uniqid, beginLabel, endLabel, textLabel)
-SELECT
-  uniqid,
-  -- begin_time AS beginLabel,
-  -- end_time AS endLabel,
-  -- caption AS textLabel
-  ftime_to_srtime(begin_time) AS beginLabel,
-  ftime_to_srtime(end_time) AS endLabel,
-  oneline(caption) AS textLabel
-FROM master
-;
-
 --:table_view
 SELECT
   -- ftime_to_srtime(begin_time) AS beginLabel,
@@ -46,9 +33,6 @@ ORDER BY RANDOM()
 --:order_sequence_asc
 ORDER BY sequence ASC
 
---:insert_into_master
-INSERT INTO master
-VALUES (:uniqid, :seq, :btime, :etime, :caption);
 
 --:insert_into_label
 INSERT INTO label VALUES (?, ?, ?, ?, ?);

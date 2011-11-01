@@ -59,8 +59,9 @@ class TimelineModel
     # 外部データ読み込み
     @ext = Tk84::Extsource.new
     @ext.parser:sql, Tk84::Parser::Sql
-    @ext.source:sql, :all, "#{File.dirname(__FILE__)}/all.sql"
+    @ext.source:sql, :select, "#{File.dirname(__FILE__)}/select.sql"
     @ext.source:sql, :create, "#{File.dirname(__FILE__)}/create.sql"
+    @ext.soruce:sql, :insert, "#{File.dirname(__FILE__)}/insert.sql"
 
 
     # 本データテーブル
@@ -72,7 +73,7 @@ class TimelineModel
       # ハッシュキーをシンボルから文字列に変換
       record.each_pair {|key,value| record[key.to_s] = record.delete key if key.is_a? Symbol }
 
-      @db.execute(@ext.sql(:all,:insert_into_master),
+      @db.execute(@ext.sql(:insert,:master),
           withDictionaryBindings:record)
     end
 
@@ -105,7 +106,7 @@ class TimelineModel
   end
 
   def refresh_tmp_table order_param
-    @db.execute @ext.sql:all,:insert_label_from_master
+    @db.execute @ext.sql:insert,:label_from_master
   end
 
   # 選択されている行から最も小さい最初時間と最も大きい最後時間を抽出
